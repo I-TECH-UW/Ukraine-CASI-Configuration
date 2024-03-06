@@ -1,0 +1,253 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "160",
+  "meta": {
+    "versionId": "37",
+    "lastUpdated": "2024-03-06T10:51:29.899+03:00",
+    "source": "#KfiVbsyqsD6oynwi"
+  },
+  "language": "en",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemExtractionContext",
+      "valueExpression": {
+        "name": "RelatedPerson",
+        "language": "application/x-fhir-query",
+        "expression": "RelatedPerson"
+      }
+    }
+  ],
+  "status": "active",
+  "subjectType": [
+    "Patient",
+    "RelatedPerson"
+  ],
+  "date": "2024-03-06T07:24:47.111Z",
+  "item": [
+    {
+      "linkId": "study-materials",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "why-partner-testing",
+          "text": "<span style='color: blue;'><strong>Why partner testing services</strong></span>",
+          "type": "display"
+        },
+        {
+          "linkId": "why-partner-testing-one",
+          "text": "Your health is important. By getting tested for HIV and starting treatment, you are taking care of your own health, for the future",
+          "type": "display"
+        },
+        {
+          "linkId": "why-partner-testing-two",
+          "text": "It is our priority that you get the care you need. We also want to be sure that your sex partners, the people you use drugs with, and other people you know also get the care they need and that they stay safe.",
+          "type": "display"
+        },
+        {
+          "linkId": "why-partner-testing-three",
+          "text": "If any of your sexual or injection partners have not been tested for HIV in the past 6 months or since your last contact with them, then it is a good idea for them to get tested.",
+          "type": "display"
+        },
+        {
+          "linkId": "why-partner-testing-four",
+          "text": "We now have very effective, free medicines for treating and for preventing HIV. You can help your partners stay healthy by making sure they get tested for HIV.",
+          "type": "display"
+        }
+      ]
+    },
+    {
+      "linkId": "how-your-partners-can-stay-healthy",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "how-your-partners-can-stay-healthy-one",
+          "text": "<span style='color: blue;'><strong>How your partners can stay healthy</strong></span>",
+          "type": "display"
+        },
+        {
+          "linkId": "how-your-partners-can-stay-healthy-one",
+          "text": "<strong>If your partner is diagnosed with HIV</strong> when they get tested, they can <strong>start HIV antiretroviral therapy</strong>. This has a double benefit.",
+          "type": "display"
+        },
+        {
+          "linkId": "how-your-partners-can-stay-healthy-two",
+          "text": "1.First, it protects your partner’s health and keeps them from becoming sick because of HIV. Second, because it holds down the HIV virus in their bodies, it prevents them from passing HIV to others through sex or needle-sharing. If your partner is a woman who becomes pregnant, starting HIV treatment can prevent her from passing HIV to her baby.",
+          "type": "display"
+        },
+        {
+          "linkId": "how-your-partners-can-stay-healthy-three",
+          "text": "2. Second, because it holds down the HIV virus in their bodies, it prevents them from passing HIV to others through sex or needle-sharing. If your partner is a woman who becomes pregnant, starting HIV treatment can prevent her from passing HIV to her baby.",
+          "type": "display"
+        },
+        {
+          "linkId": "how-your-partners-can-stay-healthy-four",
+          "text": "If your partner learns they do not have HIV when they get tested, they can:-",
+          "type": "display"
+        },
+        {
+          "linkId": "how-your-partners-can-stay-healthy-five",
+          "text": "1. learn about how to avoid getting HIV in the future. Using condoms during sex and avoiding sharing needles are two important ways to avoid getting HIV.",
+          "type": "display"
+        },
+        {
+          "linkId": "how-your-partners-can-stay-healthy-six",
+          "text": "2. Your partner can also take a medicine, known as HIV pre-exposure prophylaxis (or “PrEP”), to protect them from getting HIV even if they have sex without a condom or share a needle",
+          "type": "display"
+        }
+      ]
+    },
+    {
+      "linkId": "voluntary-participation",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "voluntary-participation-one",
+          "text": "<span style='color: blue;'><strong>Voluntary participation</strong></span>",
+          "type": "display"
+        },
+        {
+          "linkId": "voluntary-participation-two",
+          "text": "Your doctor invites you to <strong>share information about your partners</strong> and their HIV testing, so we can support them to get tested soon if needed.",
+          "type": "display"
+        },
+        {
+          "linkId": "voluntary-participation-three",
+          "text": "1. We will start by asking you questions on this tablet.",
+          "type": "display"
+        },
+        {
+          "linkId": "voluntary-participation-four",
+          "text": "2. After you finish with the tablet, your doctor, nurse, or social worker will discuss your answers with you and plan next steps.",
+          "type": "display"
+        },
+        {
+          "linkId": "voluntary-participation-five",
+          "text": "As with any health matter, <strong>you can choose what information you wish to share.</strong> Your participation is fully voluntary.",
+          "type": "display"
+        }
+      ]
+    },
+    {
+      "linkId": "privacy",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "privacy-one",
+          "text": "<span style='color: blue;'><strong>Privacy</strong></span>",
+          "type": "display"
+        },
+        {
+          "linkId": "privacy-two",
+          "text": "<strong>All information you share on this tablet is confidential.</strong> Only authorized health workers will be able to see the information you share on the tablet. The information you share is protected according to the laws of Ukraine.",
+          "type": "display"
+        },
+        {
+          "linkId": "privacy-three",
+          "text": "We will not collect your name. Instead we will use a special code that only your doctor has access to.",
+          "type": "display"
+        }
+      ]
+    },
+    {
+      "linkId": "time-window",
+      "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.identifier",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "time-window-one",
+          "text": "<span style='color: blue;'><strong>Time window for notifying your partners</strong></span>",
+          "type": "display"
+        },
+        {
+          "linkId": "time-window-two",
+          "text": "<strong>We will ask about your partners during the past 3 years, or during the time since you may have gotten HIV.</strong>",
+          "type": "display"
+        },
+        {
+          "linkId": "time-window-date-hiv-diagnosis-three",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueDateTime",
+          "text": "<strong>1. When were you diagnosed with HIV?</strong>",
+          "type": "date",
+          "required": true
+        },
+        {
+          "linkId": "time-window-four",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueBoolean",
+          "text": "<strong>2. Before you were diagnosed with HIV, did you ever have an HIV test showing you did not have HIV (a HIV-Negative test)? </strong>",
+          "type": "boolean"
+        },
+        {
+          "linkId": "time-window-five",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueDateTime",
+          "text": "<strong>3. If yes, what was the month and year of your most recent HIV-Negative test?</strong>",
+          "type": "date",
+          "required": true
+        }
+      ]
+    },
+    {
+      "linkId": "sexual-partners",
+      "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.identifier",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "sexual-partners-one",
+          "text": "<span style='color: blue;'><strong>Your sexual partners</strong></span>",
+          "type": "display"
+        },
+        {
+          "linkId": "sexual-partners-two",
+          "text": "HIV can be passed through sex. Almost everyone has had sex with at least a few different people during their lives. It is normal. <strong>We want to make sure that the people you have had sex with get tested for HIV so that they can stay healthy.</strong>",
+          "type": "display"
+        },
+        {
+          "linkId": "sexual-partners-three",
+          "definition": "http://hl7.org/fhir/StructureDefinition/RelatedPerson#RelatedPerson.humanName",
+          "text": "<strong>4. Who was the last person you had sex with?</strong>",
+          "type": "string"
+        },
+        {
+          "linkId": "time-window-four",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueBoolean",
+          "text": "<strong>2. Before you were diagnosed with HIV, did you ever have an HIV test showing you did not have HIV (a HIV-Negative test)? </strong>",
+          "type": "boolean"
+        },
+        {
+          "linkId": "time-window-five",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueDateTime",
+          "text": "<strong>3. If yes, what was the month and year of your most recent HIV-Negative test?</strong>",
+          "type": "date"
+        },
+        {
+          "linkId": "time-window-six",
+          "text": "HIV can be passed through sex. Almost everyone has had sex with at least a few different people during their lives. It is normal. <strong>We want to make sure that the people you have had sex with get tested for HIV so that they can stay healthy</strong>",
+          "type": "display"
+        },
+        {
+          "linkId": "time-window-seven",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Appointment#Appointment.created",
+          "text": "<strong>4. Who was the last person you had sex with? (Please type a first name or a nickname.)</strong>",
+          "type": "string"
+        },
+        {
+          "linkId": "time-window-eight",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Appointment#Appointment.created",
+          "text": "<strong>5. When did you last have sex with #{/sexual-partners-three}?</strong>",
+          "type": "date"
+        },
+        {
+          "linkId": "time-window-nine",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Appointment#Appointment.created",
+          "text": "<strong>6. Has {{ sexual-partners-three.answer }}.answer.valueString}} ever tested positive for HIV+?</strong>",
+          "type": "boolean"
+        },
+        {
+          "linkId": "time-window-ten",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Appointment#Appointment.created",
+          "text": "<strong> 6a. Has ${sexual-partners-three} ever started treatment for HIV?</strong>",
+          "type": "boolean"
+        }
+      ]
+    }
+  ]
+}
