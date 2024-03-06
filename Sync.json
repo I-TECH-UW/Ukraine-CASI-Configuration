@@ -34,7 +34,8 @@
           "Measure",
           "MeasureReport",
           "Flag",
-          "List"
+          "List",
+          "RelatedPerson"
         ]
       }
     },
@@ -93,7 +94,8 @@
           "Measure",
           "MeasureReport",
           "Flag",
-          "List"
+          "List",
+          "RelatedPerson"
         ],
         "type": "token",
         "expression": "#count"

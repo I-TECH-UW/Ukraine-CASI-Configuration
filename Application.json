@@ -2,7 +2,7 @@
   "appId": "app",
   "configType": "application",
   "theme": "DEFAULT",
-  "appTitle": "UKRAINE-CASI_PLUS",
+  "appTitle": "CASI-PLUS",
   "registerDate": "2020-10-27",
   "reportRepeatTime": "23:22",
   "remoteSyncPageSize": 100,
@@ -30,14 +30,101 @@
       "Patient",
       "CarePlan",
       "Task",
-      "Encounter",
+      "Encounter",{
+        "appId": "app",
+        "configType": "application",
+        "theme": "DEFAULT",
+        "appTitle": "CASI-PLUS",
+        "registerDate": "2020-10-27",
+        "reportRepeatTime": "23:22",
+        "remoteSyncPageSize": 100,
+        "languages": [
+          "en",
+          "sw",
+          "fr",
+          "ukr"
+        ],
+        "useDarkTheme": false,
+        "syncInterval": 30,
+        "syncStrategy": [
+          "Location",
+          "Organization",
+          "CareTeam",
+          "Practitioner"
+        ],
+        "loginConfig": {
+          "showLogo": true,
+          "enablePin": true
+        },
+        "deviceToDeviceSync": {
+          "resourcesToSync": [
+            "Group",
+            "Patient",
+            "CarePlan",
+            "Task",
+            "Encounter",
+            "Observation",
+            "Condition",
+            "Questionnaire",
+            "QuestionnaireResponse",
+            "RelatedPerson",
+            "List",
+            "Flag",
+            "RelatedPerson"
+          ]
+        },
+        "eventWorkflows": [
+          {
+            "eventType": "RESOURCE_CLOSURE",
+            "eventResources": [
+              {
+                "id": "sickChildConditionToBeClosed",
+                "resource": "Condition",
+                "configRules": [
+                  {
+                    "name": "patientId",
+                    "condition": "true",
+                    "actions": [
+                      "data.put('patientId', fhirPath.extractValue(CarePlan, 'CarePlan.subject.reference'))"
+                    ]
+                  }
+                ],
+                "dataQueries": [
+                  {
+                    "paramName": "code",
+                    "filterCriteria": [
+                      {
+                        "dataType": "CODEABLECONCEPT",
+                        "value": {
+                          "system": "http://snomed.info/sct",
+                          "code": "275142008"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "paramName": "subject",
+                    "filterCriteria": [
+                      {
+                        "dataType": "REFERENCE",
+                        "computedRule": "patientId"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
       "Observation",
       "Condition",
       "Questionnaire",
       "QuestionnaireResponse",
       "RelatedPerson",
       "List",
-      "Flag"
+      "Flag",
+      "RelatedPerson"
     ]
   },
   "eventWorkflows": [

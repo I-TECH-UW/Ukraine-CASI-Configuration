@@ -9,53 +9,13 @@
     },
     "relatedResources": [
       {
-        "resource": "Immunization",
-        "searchParameter": "patient"
+        "id": "relatedPersons",
+        "resource": "RelatedPerson",
+        "searchParameter": "patient",
+        "resultAsCount": true
       }
     ]
   },
-  "secondaryResources": [
-    {
-      "baseResource": {
-        "id": "commodities",
-        "resource": "Group",
-        "dataQueries": [
-          {
-            "paramName": "code",
-            "filterCriteria": [
-              {
-                "dataType": "CODEABLECONCEPT",
-                "value": {
-                  "system": "http://snomed.info/sct",
-                  "code": "386452003"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "relatedResources": [
-        {
-          "id": "latestObservations",
-          "resource": "Observation",
-          "searchParameter": "subject",
-          "dataQueries": [
-            {
-              "paramName": "_tag",
-              "filterCriteria": [
-                {
-                  "dataType": "CODING",
-                  "value": {
-                    "code": "latest"
-                  }
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ],
   "fabActions": [
     {
       "id": "ActionButton",
@@ -78,19 +38,6 @@
       ]
     }
   ],
-  "filter": {
-    "visible": true,
-    "display": "Show overdue",
-    "rules": [
-      {
-        "name": "filter",
-        "condition": "",
-        "actions": [
-          ""
-        ]
-      }
-    ]
-  },
   "searchBar": {
     "visible": true,
     "display": "Search name or ID",
@@ -135,6 +82,13 @@
         "actions": [
           "data.put('patientAge', service.extractAge(Patient))"
         ]
+      },
+      {
+        "name": "relatedPersonsCount",
+        "condition": "true",
+        "actions": [
+          "data.put('relatedPersonsCount', service.computeTotalCount(relatedPersons))"
+        ]
       }
     ],
     "views": [
@@ -156,18 +110,17 @@
               }
             ],
             "showVerticalDivider": true,
-            "serviceMemberIcons": "PREGNANT_WOMAN,CHILD,CHILD",
             "serviceButton": {
               "visible": true,
-              "text": "1",
-              "status": "OVERDUE",
+              "text": "@{relatedPersonsCount} Partners",
+              "status": "DUE",
               "smallSized": false
             },
             "actions": [
               {
                 "trigger": "ON_CLICK",
                 "workflow": "LAUNCH_PROFILE",
-                "id": "otherRegistersProfile",
+                "id": "clientProfile",
                 "params": [
                   {
                     "key": "patientId",

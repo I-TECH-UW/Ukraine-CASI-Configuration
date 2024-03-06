@@ -74,29 +74,11 @@
       "mode": "working",
       "section": [
         {
-          "title": "Patient profile configuration",
-          "focus": {
-            "reference": "Binary/66",
-            "identifier": {
-              "value": "patientProfile"
-            }
-          }
-        },
-        {
-          "title": "Default profile configuration",
-          "focus": {
-            "reference": "Binary/6",
-            "identifier": {
-              "value": "defaultProfile"
-            }
-          }
-        },
-        {
-          "title": "Other Registers profile configuration",
+          "title": "Client profile configuration",
           "focus": {
             "reference": "Binary/7",
             "identifier": {
-              "value": "otherRegistersProfile"
+              "value": "clientProfile"
             }
           }
         }

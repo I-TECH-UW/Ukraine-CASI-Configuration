@@ -1,7 +1,7 @@
 {
   "appId": "app",
   "configType": "profile",
-  "id": "otherRegistersProfile",
+  "id": "clientProfile",
   "fhirResource": {
     "baseResource": {
       "resource": "Patient"
@@ -202,8 +202,8 @@
           "trigger": "ON_CLICK",
           "workflow": "LAUNCH_QUESTIONNAIRE",
           "questionnaire": {
-            "id": "34343434",
-            "title": "taskDescription",
+            "id": "11000",
+            "title": "follow-up interview",
             "saveButtonText": "Save"
           },
           "params": [
@@ -229,8 +229,8 @@
           "trigger": "ON_CLICK",
           "workflow": "LAUNCH_QUESTIONNAIRE",
           "questionnaire": {
-            "id": "34343434",
-            "title": "taskDescription",
+            "id": "130000",
+            "title": "IS SSD client Summary",
             "saveButtonText": "Save"
           },
           "params": [
