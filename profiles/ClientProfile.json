@@ -1,0 +1,318 @@
+{
+  "appId": "app",
+  "configType": "profile",
+  "id": "otherRegistersProfile",
+  "fhirResource": {
+    "baseResource": {
+      "resource": "Patient"
+    },
+    "relatedResources": [
+      {
+        "resource": "RelatedPerson",
+        "searchParameter": "patient"
+      }
+    ]
+  },
+  "topAppBar": {
+    "title": {
+      "viewType": "COMPOUND_TEXT",
+      "primaryText": "Index Client profile",
+      "primaryTextColor": "#FFFFFF",
+      "fontSize": 16.0,
+      "maxLines": 1,
+      "primaryTextFontWeight": "BOLD"
+    },
+    "collapsible": false
+  },
+  "rules": [
+    {
+      "name": "patientActive",
+      "condition": "true",
+      "actions": [
+        "data.put('patientActive', fhirPath.extractValue(Patient, 'Patient.active'))"
+      ]
+    },
+    {
+      "name": "patientTextColor",
+      "condition": "true",
+      "actions": [
+        "data.put('patientTextColor', Patient.active ? '#000000' : 'DefaultColor')"
+      ]
+    },
+    {
+      "name": "patientID",
+      "condition": "true",
+      "actions": [
+        "data.put('patientID', fhirPath.extractValue(Patient, 'Patient.id'))"
+      ]
+    },
+    {
+      "name": "patientIdentifier",
+      "condition": "true",
+      "actions": [
+        "data.put('patientIdentifier', fhirPath.extractValue(Patient, 'Patient.identifier[1].value'))"
+      ]
+    },
+    {
+      "name": "patientAge",
+      "condition": "true",
+      "actions": [
+        "data.put('patientAge', service.extractAge(Patient))"
+      ]
+    },
+    {
+      "name": "patientGender",
+      "condition": "true",
+      "actions": [
+        "data.put('patientGender', service.extractGender(Patient))"
+      ]
+    },
+    {
+      "name": "patientDOB",
+      "condition": "true",
+      "actions": [
+        "data.put('patientDOB', service.extractDOB(Patient, 'dd MM'))"
+      ]
+    }
+  ],
+  "views": [
+    {
+      "viewType": "COLUMN",
+      "children": [
+        {
+          "viewType": "CARD",
+          "padding": 0,
+          "content": [
+            {
+              "viewType": "COLUMN",
+              "children": [
+                {
+                  "viewType": "COMPOUND_TEXT",
+                  "primaryText": "ID: @{patientIdentifier}",
+                  "primaryTextColor": "#000000"
+                },
+                {
+                  "viewType": "COMPOUND_TEXT",
+                  "primaryText": "INDEX CLIENT",
+                  "backgroundColor": "#1e52a6",
+                  "padding": "10",
+                  "primaryTextColor": "#FFFFFF"
+                },
+                {
+                  "viewType": "SPACER",
+                  "height": 10
+                },
+                {
+                  "viewType": "PERSONAL_DATA",
+                  "personalDataItems": [
+                    {
+                      "label": {
+                        "viewType": "COMPOUND_TEXT",
+                        "primaryText": "Sex",
+                        "primaryTextColor": "#000000"
+                      },
+                      "displayValue": {
+                        "viewType": "COMPOUND_TEXT",
+                        "primaryText": "@{patientGender}",
+                        "fontSize": 14,
+                        "primaryTextColor": "#000000"
+                      }
+                    },
+                    {
+                      "label": {
+                        "viewType": "COMPOUND_TEXT",
+                        "primaryText": "Age",
+                        "primaryTextColor": "#000000"
+                      },
+                      "displayValue": {
+                        "viewType": "COMPOUND_TEXT",
+                        "primaryText": "@{patientAge}",
+                        "fontSize": 14,
+                        "primaryTextColor": "#000000"
+                      }
+                    },
+                    {
+                      "label": {
+                        "viewType": "COMPOUND_TEXT",
+                        "primaryText": "DOB",
+                        "primaryTextColor": "#000000"
+                      },
+                      "displayValue": {
+                        "viewType": "COMPOUND_TEXT",
+                        "primaryText": "@{patientDOB}",
+                        "fontSize": 14,
+                        "primaryTextColor": "#000000"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "viewType": "SPACER",
+          "height": 8
+        },
+        {
+          "viewType": "COMPOUND_TEXT",
+          "primaryText": "VISIT",
+          "padding": 16,
+          "primaryTextColor": "#6F7274",
+          "fontSize": 18
+        }
+      ]
+    },
+    {
+      "viewType": "BUTTON",
+      "text": "Launch first partner elicitation interview",
+      "status": "DUE",
+      "primaryTextColor": "#91881c",
+      "visible": "true",
+      "enabled": "true",
+      "actions": [
+        {
+          "trigger": "ON_CLICK",
+          "workflow": "LAUNCH_QUESTIONNAIRE",
+          "questionnaire": {
+            "id": "160",
+            "title": "Elicitation Interview",
+            "saveButtonText": "Partner Elicitation interview"
+          },
+          "params": [
+            {
+              "paramType": "QUESTIONNAIRE_RESPONSE_POPULATION_RESOURCE",
+              "resourceType": "Patient",
+              "key": "resourcePatient",
+              "value": "@{patientID}",
+              "dataType": "STRING"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "viewType": "BUTTON",
+      "text": "Launch follow-up interview",
+      "status": "#2d6387",
+      "visible": "true",
+      "enabled": "true",
+      "actions": [
+        {
+          "trigger": "ON_CLICK",
+          "workflow": "LAUNCH_QUESTIONNAIRE",
+          "questionnaire": {
+            "id": "34343434",
+            "title": "taskDescription",
+            "saveButtonText": "Save"
+          },
+          "params": [
+            {
+              "paramType": "QUESTIONNAIRE_RESPONSE_POPULATION_RESOURCE",
+              "resourceType": "Patient",
+              "value": "patientId",
+              "key": "resourcePatient",
+              "dataType": "STRING"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "viewType": "BUTTON",
+      "text": "View IS SSD client Summary",
+      "status": "#2d6387",
+      "visible": "true",
+      "enabled": "true",
+      "actions": [
+        {
+          "trigger": "ON_CLICK",
+          "workflow": "LAUNCH_QUESTIONNAIRE",
+          "questionnaire": {
+            "id": "34343434",
+            "title": "taskDescription",
+            "saveButtonText": "Save"
+          },
+          "params": [
+            {
+              "paramType": "QUESTIONNAIRE_RESPONSE_POPULATION_RESOURCE",
+              "resourceType": "Patient",
+              "value": "patientId",
+              "key": "resourcePatient",
+              "dataType": "STRING"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "viewType": "COLUMN",
+      "children": [
+        {
+          "viewType": "CARD",
+          "padding": 16,
+          "header": {
+            "viewType": "COMPOUND_TEXT",
+            "primaryText": "Partners",
+            "primaryTextColor": "#6F7274",
+            "fontSize": 18,
+            "padding": 16
+          },
+          "contentPadding": 0,
+          "content": [
+            {
+              "viewType": "LIST",
+              "padding": 16,
+              "resources": [
+                {
+                  "id": "clientPartners",
+                  "relatedResourceId": "RelatedPerson",
+                  "resourceType": "RelatedPerson"
+                }
+              ],
+              "emptyList": {
+                "message": "No Partners available for this Index Client at the moment"
+              },
+              "registerCard": {
+                "rules": [
+                  {
+                    "name": "partnerIdentifier",
+                    "condition": "true",
+                    "actions": [
+                      "data.put('partnerIdentifier', fhirPath.extractValue(RelatedPerson, 'RelatedPerson.identifier[1].value'))"
+                    ]
+                  },
+                  {
+                    "name": "partnerAge",
+                    "condition": "true",
+                    "actions": [
+                      "data.put('partnerAge', service.extractAge(RelatedPerson))"
+                    ]
+                  },
+                  {
+                    "name": "partnerGender",
+                    "condition": "true",
+                    "actions": [
+                      "data.put('partnerGender', fhirPath.extractValue(RelatedPerson, 'RelatedPerson.gender'))"
+                    ]
+                  }
+                ],
+                "views": [
+                  {
+                    "viewType": "COMPOUND_TEXT",
+                    "primaryTextBackgroundColor": "#F5F5F5",
+                    "primaryText": "Partner ID: @{partnerIdentifier} | Gender: @{partnerGender}",
+                    "primaryTextColor": "#6F7274",
+                    "fontSize": 13,
+                    "padding": 7,
+                    "borderRadius": 6
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
