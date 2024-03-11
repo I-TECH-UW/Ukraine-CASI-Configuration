@@ -177,13 +177,14 @@
           "questionnaire": {
             "id": "160",
             "title": "Elicitation Interview",
+            "resourceIdentifier": "@{patientID}",
             "saveButtonText": "Partner Elicitation interview"
           },
           "params": [
             {
-              "paramType": "QUESTIONNAIRE_RESPONSE_POPULATION_RESOURCE",
-              "resourceType": "Patient",
-              "key": "resourcePatient",
+              "paramType": "PREPOPULATE",
+              "linkId": "patientId",
+              "key": "patientId",
               "value": "@{patientID}",
               "dataType": "STRING"
             }
