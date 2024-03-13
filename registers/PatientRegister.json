@@ -33,8 +33,26 @@
             "id": "75",
             "title": "Add New Client",
             "saveButtonText": "Add Client"
-          }
+          },
+          "params": [
+            {
+              "paramType": "PREPOPULATE",
+              "linkId": "casiPlus",
+              "dataType": "STRING",
+              "key": "casiPlus",
+              "value": "@{humanReadableId}"
+            }
+          ]
         }
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "name": "humanReadableId",
+      "condition": "true",
+      "actions": [
+        "data.put('humanReadableId', service.generateRandomSixDigitInt())"
       ]
     }
   ],
@@ -156,7 +174,16 @@
             "saveButtonText": "Add Patient",
             "setPractitionerDetails": true,
             "setOrganizationDetails": true
-          }
+          },
+          "params": [
+            {
+              "paramType": "PREPOPULATE",
+              "linkId": "casiPlus",
+              "dataType": "STRING",
+              "key": "casiPlus",
+              "value": "@{humanReadableId}"
+            }
+          ]
         }
       ]
     }

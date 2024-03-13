@@ -2,10 +2,11 @@
   "resourceType": "Questionnaire",
   "id": "160",
   "meta": {
-    "versionId": "37",
-    "lastUpdated": "2024-03-06T10:51:29.899+03:00",
-    "source": "#KfiVbsyqsD6oynwi"
+    "versionId": "55",
+    "lastUpdated": "2024-03-11T13:30:29.076+03:00",
+    "source": "#eXjbfChZU4nlAILc"
   },
+  "title": "Partner Elicitation Interview",
   "language": "en",
   "extension": [
     {
@@ -35,7 +36,7 @@
         },
         {
           "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
-          "valueBoolean": false
+          "valueBoolean": true
         }
       ],
       "linkId": "patientId",
@@ -249,19 +250,52 @@
         {
           "linkId": "time-window-eight",
           "definition": "http://hl7.org/fhir/StructureDefinition/Appointment#Appointment.created",
-          "text": "<strong>5. When did you last have sex with #{/sexual-partners-three}?</strong>",
+          "text": "<strong>5. When did you last have sex with [personName] ?</strong>",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+                "valueExpression": {
+                  "language": "text/fhirpath",
+                  "expression": "'5. When did you last have sex with '+ %resource.repeat(item).where(linkId='sexual-partners-three').answer.value + '?'"
+                }
+              }
+            ]
+          },
           "type": "date"
         },
         {
           "linkId": "time-window-nine",
           "definition": "http://hl7.org/fhir/StructureDefinition/Appointment#Appointment.created",
-          "text": "<strong>6. Has {{ sexual-partners-three.answer }}.answer.valueString}} ever tested positive for HIV+?</strong>",
+          "text": "<strong>6. Has [personName] ever tested positive for HIV?</strong>",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+                "valueExpression": {
+                  "language": "text/fhirpath",
+                  "expression": "'6. Has ' + %resource.repeat(item).where(linkId='sexual-partners-three').answer.value + ' ever tested positive for HIV'"
+                }
+              }
+            ]
+          },
           "type": "boolean"
         },
         {
           "linkId": "time-window-ten",
           "definition": "http://hl7.org/fhir/StructureDefinition/Appointment#Appointment.created",
-          "text": "<strong> 6a. Has ${sexual-partners-three} ever started treatment for HIV?</strong>",
+          "text": "<strong> 6a. Has [personName] ever started treatment for HIV?</strong>",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+                "valueExpression": {
+                  "language": "text/fhirpath",
+                  "expression": "'6a. Has ' + %resource.repeat(item).where(linkId='sexual-partners-three').answer.value + ' ever started treatment for HIV?'"
+                }
+              }
+            ]
+          },
           "type": "boolean"
         }
       ]

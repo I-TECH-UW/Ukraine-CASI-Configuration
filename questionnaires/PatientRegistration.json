@@ -28,6 +28,31 @@
         {
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
           "valueExpression": {
+            "name": "patientIdentifier2",
+            "language": "text/fhirpath",
+            "expression": "Patient.identifier"
+          }
+        }
+      ],
+      "linkId": "patient-identifier2",
+      "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.identifier",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "casiPlus",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.identifier.value",
+          "text": "Casi Plus ID",
+          "type": "string",
+          "readOnly": false
+        }
+      ]
+
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+          "valueExpression": {
             "name": "patientIdentifier1",
             "language": "text/fhirpath",
             "expression": "Patient.identifier"
@@ -60,30 +85,6 @@
               }
             ]
           }
-        }
-      ]
-
-    },
-    {
-      "extension": [
-        {
-          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
-          "valueExpression": {
-            "name": "patientIdentifier2",
-            "language": "text/fhirpath",
-            "expression": "Patient.identifier"
-          }
-        }
-      ],
-      "linkId": "patient-identifier2",
-      "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.identifier",
-      "type": "group",
-      "item": [
-        {
-          "linkId": "casiPlus",
-          "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.identifier.value",
-          "text": "Casi Plus ID",
-          "type": "string"
         }
       ]
 
