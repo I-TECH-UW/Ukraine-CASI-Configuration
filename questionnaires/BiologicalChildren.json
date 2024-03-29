@@ -1,0 +1,80 @@
+{
+    "resourceType": "Questionnaire",
+    "id": "449",
+    "meta": {
+        "versionId": "1",
+        "lastUpdated": "2024-03-26T14:31:03.539+03:00",
+        "source": "#jL1OtOpBTwrK9R6C"
+    },
+    "language": "en",
+    "extension": [
+        {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemExtractionContext",
+            "valueExpression": {
+                "name": "relatedPerson",
+                "language": "application/x-fhir-query",
+                "expression": "RelatedPerson"
+            }
+        }
+    ],
+    "title": "BIOLOGICAL CHILDREN",
+    "status": "active",
+    "subjectType": [
+        "Patient",
+        "RelatedPerson",
+        "Observation"
+    ],
+    "date": "2024-03-06T07:24:47.111Z",
+    "item": [
+        {
+            "linkId": "biological-children",
+            "type": "group",
+            "item": [
+                {
+                    "linkId": "display-1",
+                    "text": "<strong>YOUR BIOLOGICAL CHILDREN</strong>\nHIV can be passed from mothers to their biological children during pregnancy, childbirth, or breastfeeding. It is important for your biological children to be tested for HIV if they may have been exposed to HIV as infants and have not been tested for HIV.",
+                    "type": "display"
+                },
+                {
+                    "linkId": "do-you-have-biological-children-test",
+                    "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+                    "text": "Do you have any biological children who should be tested for HIV?",
+                    "type": "boolean"
+                },
+                {
+                    "linkId": "display-2",
+                    "text": "Please list your biological children who should be tested for HIV, and their ages:",
+                    "type": "display"
+                },
+                {
+                    "linkId": "child-age-group",
+                    "type": "group",
+                    "enableWhen": [
+                        {
+                            "question": "do-you-have-biological-children-test",
+                            "operator": "=",
+                            "answerBoolean": true
+                        }
+                    ],
+                    "repeats": true,
+                    "item": [
+                        {
+                            "linkId": "child-name",
+                            "definition": "http://hl7.org/fhir/StructureDefinition/RelatedPerson#RelatedPerson.humanName",
+                            "text": "<strong>Name of Child</strong>",
+                            "type": "string",
+                            "repeats": true
+                        },
+                        {
+                            "linkId": "child-age",
+                            "definition": "http://hl7.org/fhir/StructureDefinition/RelatedPerson#RelatedPerson.humanName",
+                            "text": "<strong>Age of child (years)\nIf child is less than one year, please make this 1</strong>",
+                            "type": "string",
+                            "repeats": true
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
