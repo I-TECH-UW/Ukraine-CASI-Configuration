@@ -2,26 +2,31 @@
   "resourceType": "Questionnaire",
   "id": "160",
   "meta": {
-    "versionId": "55",
-    "lastUpdated": "2024-03-11T13:30:29.076+03:00",
-    "source": "#eXjbfChZU4nlAILc"
+    "versionId": "231",
+    "lastUpdated": "2024-03-24T14:49:21.907+03:00",
+    "source": "#2f230JN57mCdTkKP"
   },
-  "title": "Partner Elicitation Interview",
   "language": "en",
   "extension": [
     {
       "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemExtractionContext",
       "valueExpression": {
-        "name": "RelatedPerson",
+        "name": "relatedPerson",
         "language": "application/x-fhir-query",
         "expression": "RelatedPerson"
       }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-extensions#questionnaire-options",
+      "valueString": "{\"additem\": \"Add More\"}"
     }
   ],
+  "title": "Partner Elicitation Interview Introduction",
   "status": "active",
   "subjectType": [
     "Patient",
-    "RelatedPerson"
+    "RelatedPerson",
+    "Observation"
   ],
   "date": "2024-03-06T07:24:47.111Z",
   "item": [
@@ -45,6 +50,21 @@
     {
       "linkId": "study-materials",
       "type": "group",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/questionnaire-item-control",
+                "code": "page",
+                "display": "Page"
+              }
+            ],
+            "text": "Page"
+          }
+        }
+      ],
       "item": [
         {
           "linkId": "why-partner-testing",
@@ -70,12 +90,33 @@
           "linkId": "why-partner-testing-four",
           "text": "We now have very effective, free medicines for treating and for preventing HIV. You can help your partners stay healthy by making sure they get tested for HIV.",
           "type": "display"
+        },
+        {
+          "linkId": "more-information-toggle",
+          "text": "<span style='color: blue;'>Click here for more information</strong></span>",
+          "type": "choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://example.org/options",
+                "code": "clicked",
+                "display": "Clicked"
+              }
+            }
+          ]
         }
       ]
     },
     {
       "linkId": "how-your-partners-can-stay-healthy",
       "type": "group",
+      "enableWhen": [
+        {
+          "question": "more-information-toggle",
+          "operator": "exists",
+          "answerBoolean": true
+        }
+      ],
       "item": [
         {
           "linkId": "how-your-partners-can-stay-healthy-one",
@@ -167,8 +208,18 @@
       ]
     },
     {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemExtractionContext",
+          "valueExpression": {
+            "name": "observation",
+            "language": "application/x-fhir-query",
+            "expression": "Observation"
+          }
+        }
+      ],
       "linkId": "time-window",
-      "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.identifier",
+      "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation",
       "type": "group",
       "item": [
         {
@@ -183,120 +234,2216 @@
         },
         {
           "linkId": "time-window-date-hiv-diagnosis-three",
-          "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueDateTime",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.value",
           "text": "<strong>1. When were you diagnosed with HIV?</strong>",
-          "type": "date",
+          "type": "dateTime",
           "required": true
         },
         {
-          "linkId": "time-window-four",
-          "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueBoolean",
-          "text": "<strong>2. Before you were diagnosed with HIV, did you ever have an HIV test showing you did not have HIV (a HIV-Negative test)? </strong>",
-          "type": "boolean"
+          "linkId": "time-window-date-hiv-diagnosis-three-code",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "time-window-date-hiv-diagnosis-three-code-coding",
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code.coding",
+              "type": "group",
+              "item": [
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                      "valueBoolean": true
+                    }
+                  ],
+                  "linkId": "time-window-date-hiv-diagnosis-three-code-coding-system",
+                  "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code.coding.system",
+                  "type": "string",
+                  "initial": [
+                    {
+                      "valueString": "http://itech-uw/codingss"
+                    }
+                  ]
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                      "valueBoolean": true
+                    }
+                  ],
+                  "linkId": "time-window-date-hiv-diagnosis-three-code-coding-code",
+                  "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code.coding.code",
+                  "type": "string",
+                  "initial": [
+                    {
+                      "valueString": "1111AA"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
         {
-          "linkId": "time-window-five",
-          "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueDateTime",
-          "text": "<strong>3. If yes, what was the month and year of your most recent HIV-Negative test?</strong>",
-          "type": "date",
-          "required": true
+          "linkId": "time-window-date-hiv-diagnosis-subject-ref",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.subject",
+          "type": "group",
+          "item": [
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                }
+              ],
+              "linkId": "subject-uuid",
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.subject.reference",
+              "type": "string"
+            }
+          ]
         }
       ]
     },
     {
-      "linkId": "sexual-partners",
-      "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.identifier",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemExtractionContext",
+          "valueExpression": {
+            "name": "observation",
+            "language": "application/x-fhir-query",
+            "expression": "Observation"
+          }
+        }
+      ],
+      "linkId": "before-you-were-diagnosed-with-hiv",
+      "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation",
       "type": "group",
       "item": [
         {
-          "linkId": "sexual-partners-one",
-          "text": "<span style='color: blue;'><strong>Your sexual partners</strong></span>",
-          "type": "display"
-        },
-        {
-          "linkId": "sexual-partners-two",
-          "text": "HIV can be passed through sex. Almost everyone has had sex with at least a few different people during their lives. It is normal. <strong>We want to make sure that the people you have had sex with get tested for HIV so that they can stay healthy.</strong>",
-          "type": "display"
-        },
-        {
-          "linkId": "sexual-partners-three",
-          "definition": "http://hl7.org/fhir/StructureDefinition/RelatedPerson#RelatedPerson.humanName",
-          "text": "<strong>4. Who was the last person you had sex with?</strong>",
-          "type": "string"
-        },
-        {
-          "linkId": "time-window-four",
-          "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueBoolean",
+          "linkId": "before-you-were-diagnosed-with-hiv-one",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.value",
           "text": "<strong>2. Before you were diagnosed with HIV, did you ever have an HIV test showing you did not have HIV (a HIV-Negative test)? </strong>",
           "type": "boolean"
         },
         {
-          "linkId": "time-window-five",
-          "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.valueDateTime",
-          "text": "<strong>3. If yes, what was the month and year of your most recent HIV-Negative test?</strong>",
-          "type": "date"
+          "linkId": "before-you-were-diagnosed-with-hiv-one-code",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "before-you-were-diagnosed-with-hiv-one-code-coding",
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code.coding",
+              "type": "group",
+              "item": [
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                      "valueBoolean": true
+                    }
+                  ],
+                  "linkId": "before-you-were-diagnosed-with-hiv-one-code-coding-system",
+                  "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code.coding.system",
+                  "type": "string",
+                  "initial": [
+                    {
+                      "valueString": "http://itech-uw/codings"
+                    }
+                  ]
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                      "valueBoolean": true
+                    }
+                  ],
+                  "linkId": "before-you-were-diagnosed-with-hiv-one-code-coding-code",
+                  "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code.coding.code",
+                  "type": "string",
+                  "initial": [
+                    {
+                      "valueString": "2222BB"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
         {
-          "linkId": "time-window-six",
-          "text": "HIV can be passed through sex. Almost everyone has had sex with at least a few different people during their lives. It is normal. <strong>We want to make sure that the people you have had sex with get tested for HIV so that they can stay healthy</strong>",
+          "linkId": "before-you-were-diagnosed-with-hiv-subject-ref",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.subject",
+          "type": "group",
+          "item": [
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                }
+              ],
+              "linkId": "subject-uuid",
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.subject.reference",
+              "type": "string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemExtractionContext",
+          "valueExpression": {
+            "name": "observation",
+            "language": "application/x-fhir-query",
+            "expression": "Observation"
+          }
+        }
+      ],
+      "linkId": "month-and-year",
+      "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "if-yes-what-was-the-month-and-year",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.value",
+          "text": "<strong>3. If yes, what was the month and year of your most recent HIV-Negative test?</strong>",
+          "type": "dateTime",
+          "required": true
+        },
+        {
+          "linkId": "if-yes-what-was-the-month-and-year-code",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "if-yes-what-was-the-month-and-year-code-coding",
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code.coding",
+              "type": "group",
+              "item": [
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                      "valueBoolean": true
+                    }
+                  ],
+                  "linkId": "if-yes-what-was-the-month-and-year-code-coding-system",
+                  "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code.coding.system",
+                  "type": "string",
+                  "initial": [
+                    {
+                      "valueString": "http://itech-uw/codings"
+                    }
+                  ]
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                      "valueBoolean": true
+                    }
+                  ],
+                  "linkId": "if-yes-what-was-the-month-and-year-code-coding-code",
+                  "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code.coding.code",
+                  "type": "string",
+                  "initial": [
+                    {
+                      "valueString": "3333CC"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "if-yes-what-was-the-month-and-year-subject-ref",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.subject",
+          "type": "group",
+          "item": [
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                }
+              ],
+              "linkId": "subject-uuid",
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.subject.reference",
+              "type": "string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemExtractionContext",
+          "valueExpression": {
+            "name": "relatedPerson",
+            "language": "application/x-fhir-query",
+            "expression": "RelatedPerson"
+          }
+        }
+      ],
+      "linkId": "related-person",
+      "definition": "http://hl7.org/fhir/StructureDefinition/RelatedPerson#RelatedPerson",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "related-person-one",
+          "text": "<span style='color: blue;'><strong>Your sexual partners</strong></span>",
           "type": "display"
         },
         {
-          "linkId": "time-window-seven",
-          "definition": "http://hl7.org/fhir/StructureDefinition/Appointment#Appointment.created",
-          "text": "<strong>4. Who was the last person you had sex with? (Please type a first name or a nickname.)</strong>",
+          "linkId": "related-person-two",
+          "text": "HIV can be passed through sex. Almost everyone has had sex with at least a few different people during their lives. It is normal. <strong>We want to make sure that the people you have had sex with get tested for HIV so that they can stay healthy.</strong>",
+          "type": "display"
+        },
+        {
+          "linkId": "sexual-partners-one",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.value",
+          "text": "<strong>When did you last have sex? Please share month and year.</strong>",
+          "type": "dateTime"
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemExtractionContext",
+          "valueExpression": {
+            "name": "observation",
+            "language": "application/x-fhir-query",
+            "expression": "Observation"
+          }
+        }
+      ],
+      "linkId": "sexual-partners",
+      "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "when-did-you-last-have-sex",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "when-did-you-last-have-sex-code-coding",
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code.coding",
+              "type": "group",
+              "item": [
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                      "valueBoolean": true
+                    }
+                  ],
+                  "linkId": "when-did-you-last-have-sex-code-coding-system",
+                  "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code.coding.system",
+                  "type": "string",
+                  "initial": [
+                    {
+                      "valueString": "http://itech-uw/codings"
+                    }
+                  ]
+                },
+                {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                      "valueBoolean": true
+                    }
+                  ],
+                  "linkId": "when-did-you-last-have-sex-code-coding-code",
+                  "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.code.coding.code",
+                  "type": "string",
+                  "initial": [
+                    {
+                      "valueString": "4444DD"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "sexual-partners-subject-ref",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.subject",
+          "type": "group",
+          "item": [
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                }
+              ],
+              "linkId": "subject-uuid",
+              "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.subject.reference",
+              "type": "string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "group-one",
+      "type": "group",
+      "repeats": true,
+      "item": [
+        {
+          "linkId": "related-person-three",
+          "definition": "http://hl7.org/fhir/StructureDefinition/RelatedPerson#RelatedPerson.humanName",
+          "text": "<strong>Who was the last person you had sex with? (Please type a first name or a nickname.)</strong>",
           "type": "string"
         },
         {
-          "linkId": "time-window-eight",
-          "definition": "http://hl7.org/fhir/StructureDefinition/Appointment#Appointment.created",
-          "text": "<strong>5. When did you last have sex with [personName] ?</strong>",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemContext",
+              "valueExpression": {
+                "name": "administrativeGender",
+                "language": "application/x-fhir-query",
+                "expression": "Enumerations$AdministrativeGender"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "radio-button",
+                    "display": "Radio Button"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+              "valueCode": "horizontal"
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "name": "patientGender",
+                "language": "text/fhirpath",
+                "expression": "Patient.gender"
+              }
+            }
+          ],
+          "linkId": "gender-sexual-partner",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+          "text": "What is the sex of [personName]?",
           "_text": {
             "extension": [
               {
                 "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
                 "valueExpression": {
                   "language": "text/fhirpath",
-                  "expression": "'5. When did you last have sex with '+ %resource.repeat(item).where(linkId='sexual-partners-three').answer.value + '?'"
+                  "expression": "'What is the sex of '+ %resource.repeat(item).where(linkId='related-person-three').answer.value + '?'"
                 }
               }
             ]
           },
-          "type": "date"
+          "type": "choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://hl7.org/fhir/administrative-gender",
+                "code": "male",
+                "display": "Male"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://hl7.org/fhir/administrative-gender",
+                "code": "female",
+                "display": "Female"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://hl7.org/fhir/administrative-gender",
+                "code": "other",
+                "display": "Transgender female"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://hl7.org/fhir/administrative-gender",
+                "code": "unknown",
+                "display": "Transgender male"
+              }
+            }
+          ],
+          "initial": [
+            {
+              "valueCoding": {
+                "system": "http://hl7.org/fhir/administrative-gender",
+                "code": "male",
+                "display": "Male"
+              }
+            }
+          ]
         },
         {
-          "linkId": "time-window-nine",
-          "definition": "http://hl7.org/fhir/StructureDefinition/Appointment#Appointment.created",
-          "text": "<strong>6. Has [personName] ever tested positive for HIV?</strong>",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemContext",
+              "valueExpression": {
+                "name": "administrativeGender",
+                "language": "application/x-fhir-query",
+                "expression": "Enumerations$AdministrativeGender"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "radio-button",
+                    "display": "Radio Button"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+              "valueCode": "horizontal"
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "name": "patientGender",
+                "language": "text/fhirpath",
+                "expression": "Patient.gender"
+              }
+            }
+          ],
+          "linkId": "age-category-sexual-partner",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+          "text": "What is the age category of [personName]?",
           "_text": {
             "extension": [
               {
                 "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
                 "valueExpression": {
                   "language": "text/fhirpath",
-                  "expression": "'6. Has ' + %resource.repeat(item).where(linkId='sexual-partners-three').answer.value + ' ever tested positive for HIV'"
+                  "expression": "'What is the age category of '+ %resource.repeat(item).where(linkId='related-person-three').answer.value + '?'"
                 }
               }
             ]
           },
+          "type": "choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "less than 15 years",
+                "display": "less than 15 years"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "15 years or older",
+                "display": "15 years or older"
+              }
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemContext",
+              "valueExpression": {
+                "name": "administrativeGender",
+                "language": "application/x-fhir-query",
+                "expression": "Enumerations$AdministrativeGender"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "radio-button",
+                    "display": "Radio Button"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+              "valueCode": "horizontal"
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "name": "patientGender",
+                "language": "text/fhirpath",
+                "expression": "Patient.gender"
+              }
+            }
+          ],
+          "linkId": "what-is-the-relationship",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+          "text": "What is your relationship to Partner_name_sexual?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+                "valueExpression": {
+                  "language": "text/fhirpath",
+                  "expression": "'What is your relationship to  '+ %resource.repeat(item).where(linkId='related-person-three').answer.value + '?'"
+                }
+              }
+            ]
+          },
+          "type": "choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "Living together",
+                "display": "Living together"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "Married",
+                "display": "Married"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "Dating / steady partner",
+                "display": "Dating / steady partner"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "Occasional partner",
+                "display": "Occasional partner"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "One-time partner",
+                "display": "One-time partner"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "Other",
+                "display": "Other"
+              }
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemContext",
+              "valueExpression": {
+                "name": "administrativeGender",
+                "language": "application/x-fhir-query",
+                "expression": "Enumerations$AdministrativeGender"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "radio-button",
+                    "display": "Radio Button"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+              "valueCode": "horizontal"
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "name": "patientGender",
+                "language": "text/fhirpath",
+                "expression": "Patient.gender"
+              }
+            }
+          ],
+          "linkId": "how-long-have-you-been-in-a-relationship",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+          "text": "How long have you been in a relationship with [personName]?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+                "valueExpression": {
+                  "language": "text/fhirpath",
+                  "expression": "'How long have you been in a relationship with '+ %resource.repeat(item).where(linkId='related-person-three').answer.value + '?'"
+                }
+              }
+            ]
+          },
+          "type": "choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "less than 1 month",
+                "display": "Less than 1 month"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "1-5 months",
+                "display": "1-5 months"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "6-12 months",
+                "display": "6-12 months"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "1-5 years",
+                "display": "1-5 years"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "more than 5 years",
+                "display": "more than 5 years"
+              }
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemContext",
+              "valueExpression": {
+                "name": "administrativeGender",
+                "language": "application/x-fhir-query",
+                "expression": "Enumerations$AdministrativeGender"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "radio-button",
+                    "display": "Radio Button"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+              "valueCode": "horizontal"
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "name": "patientGender",
+                "language": "text/fhirpath",
+                "expression": "Patient.gender"
+              }
+            }
+          ],
+          "linkId": "do-you-think-you-will-have-sex-with",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+          "text": "Do you think you will have sex with Partner_name_sexual again?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+                "valueExpression": {
+                  "language": "text/fhirpath",
+                  "expression": "'Do you think you will have sex with '+ %resource.repeat(item).where(linkId='related-person-three').answer.value + ' again?'"
+                }
+              }
+            ]
+          },
+          "type": "choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "yes",
+                "display": "Yes"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "no",
+                "display": "No"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "do not know",
+                "display": "Do not know"
+              }
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemContext",
+              "valueExpression": {
+                "name": "administrativeGender",
+                "language": "application/x-fhir-query",
+                "expression": "Enumerations$AdministrativeGender"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "radio-button",
+                    "display": "Radio Button"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+              "valueCode": "horizontal"
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "name": "patientGender",
+                "language": "text/fhirpath",
+                "expression": "Patient.gender"
+              }
+            }
+          ],
+          "linkId": "does-the-sexual-partner-already-know-that-you-are-living-with-hiv",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+          "text": "Does [personName] already know that you are living with HIV ?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+                "valueExpression": {
+                  "language": "text/fhirpath",
+                  "expression": "'Does '+ %resource.repeat(item).where(linkId='related-person-three').answer.value + ' already know that you are living with HIV ?'"
+                }
+              }
+            ]
+          },
+          "type": "choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "yes",
+                "display": "Yes"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "no",
+                "display": "No"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "do not know",
+                "display": "Do not know"
+              }
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemContext",
+              "valueExpression": {
+                "name": "administrativeGender",
+                "language": "application/x-fhir-query",
+                "expression": "Enumerations$AdministrativeGender"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "radio-button",
+                    "display": "Radio Button"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+              "valueCode": "horizontal"
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "name": "patientGender",
+                "language": "text/fhirpath",
+                "expression": "Patient.gender"
+              }
+            }
+          ],
+          "linkId": "to-your-knowledge-has-sexual-partner-ever-tested-for-hiv",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+          "text": "To your knowledge has [personName] ever been tested for HIV?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+                "valueExpression": {
+                  "language": "text/fhirpath",
+                  "expression": "'To your knowledge has '+ %resource.repeat(item).where(linkId='related-person-three').answer.value + ' ever been tested for HIV?'"
+                }
+              }
+            ]
+          },
+          "type": "choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "yes",
+                "display": "Yes"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "no",
+                "display": "No"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "do not know",
+                "display": "Do not know"
+              }
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemContext",
+              "valueExpression": {
+                "name": "administrativeGender",
+                "language": "application/x-fhir-query",
+                "expression": "Enumerations$AdministrativeGender"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "radio-button",
+                    "display": "Radio Button"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+              "valueCode": "horizontal"
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "name": "patientGender",
+                "language": "text/fhirpath",
+                "expression": "Patient.gender"
+              }
+            }
+          ],
+          "linkId": "to-your-knowledge-when-was-sexual-partner-most-recently-tested-for-hiv",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+          "text": "To your knowledge when was [personName] most recently tested for HIV? Please enter month and year.",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+                "valueExpression": {
+                  "language": "text/fhirpath",
+                  "expression": "'To your knowledge when was  ' + %resource.repeat(item).where(linkId='related-person-three').answer.value + ' most recently tested for HIV? Please enter month and year.'"
+                }
+              }
+            ]
+          },
+          "type": "dateTime"
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemContext",
+              "valueExpression": {
+                "name": "administrativeGender",
+                "language": "application/x-fhir-query",
+                "expression": "Enumerations$AdministrativeGender"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "radio-button",
+                    "display": "Radio Button"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+              "valueCode": "horizontal"
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "name": "patientGender",
+                "language": "text/fhirpath",
+                "expression": "Patient.gender"
+              }
+            }
+          ],
+          "linkId": "result-of-the-most-recent-hiv-test",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+          "text": "What was the result of the most recent HIV test for [personName]?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+                "valueExpression": {
+                  "language": "text/fhirpath",
+                  "expression": "'What was the result of the most recent HIV test for ' + %resource.repeat(item).where(linkId='related-person-three').answer.value + '?'"
+                }
+              }
+            ]
+          },
+          "type": "choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "Tested HIV-positive (diagnosed with HIV)",
+                "display": "Tested HIV-positive (diagnosed with HIV)"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "Tested HIV-negative (no HIV)",
+                "display": "Tested HIV-negative (no HIV)"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "do not know",
+                "display": "Do not know"
+              }
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemContext",
+              "valueExpression": {
+                "name": "administrativeGender",
+                "language": "application/x-fhir-query",
+                "expression": "Enumerations$AdministrativeGender"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "radio-button",
+                    "display": "Radio Button"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+              "valueCode": "horizontal"
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "name": "patientGender",
+                "language": "text/fhirpath",
+                "expression": "Patient.gender"
+              }
+            }
+          ],
+          "linkId": "has-sexual-partner-ever-been-enrolled-in-hiv-care-and-treatment",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+          "text": "Has [personName] ever been enrolled in HIV care and treatment?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+                "valueExpression": {
+                  "language": "text/fhirpath",
+                  "expression": "'Has '+ %resource.repeat(item).where(linkId='related-person-three').answer.value +' ever been enrolled in HIV care and treatment?'"
+                }
+              }
+            ]
+          },
+          "type": "choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "yes",
+                "display": "Yes"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "no",
+                "display": "No"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "do not know",
+                "display": "Do not know"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "risk-of-notifying partner-one",
+          "text": "<span style='color: blue;'><strong>RISKS OF NOTIFYING PARTNERS</strong></span>",
+          "type": "display"
+        },
+        {
+          "linkId": "risk-of-notifying partner-two",
+          "text": "<span style='color: blue;'><strong>Some people worry that their partner will become upset if they learn they have been exposed to HIV. You may fear your partner could hurt you if they learn you have HIV or suspect you have HIV.</strong></span>",
+          "type": "display"
+        },
+        {
+          "linkId": "risk-of-notifying partner-three",
+          "text": "Harm can be:-",
+          "type": "display"
+        },
+        {
+          "linkId": "risk-of-notifying partner-four",
+          "text": "- Physical (beating, assault)",
+          "type": "display"
+        },
+        {
+          "linkId": "risk-of-notifying partner-five",
+          "text": "- Sexual (assault or abuse)",
+          "type": "display"
+        },
+        {
+          "linkId": "risk-of-notifying partner-six",
+          "text": "- Emotional (insults, verbal abuse)",
+          "type": "display"
+        },
+        {
+          "linkId": "risk-of-notifying partner-seven",
+          "text": "- Economic (withholding money or resources)",
+          "type": "display"
+        },
+        {
+          "linkId": "risk-of-notifying partner-eight",
+          "text": "- Ending your relationship",
+          "type": "display"
+        },
+        {
+          "linkId": "risk-of-notifying partner-nine",
+          "text": "- You may discuss any of these concerns with your healthcare providers.",
+          "type": "display"
+        },
+        {
+          "linkId": "risk-of-notifying partner-ten",
+          "text": "- Ending your relationship",
+          "type": "display"
+        },
+        {
+          "linkId": "risk-of-notifying partner-eleven",
+          "text": "We will ask you about your concerns about physical, emotional, or sexual violence. We encourage you to discuss your concerns about your risk of harm with the health worker.",
+          "type": "display"
+        },
+        {
+          "linkId": "risk-of-notifying partner-twelve",
+          "text": "Has [personName] ever hit, kicked, slapped, or otherwise physically hurt you?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+                "valueExpression": {
+                  "language": "text/fhirpath",
+                  "expression": "'Has '+ %resource.repeat(item).where(linkId='related-person-three').answer.value + 'ever hit, kicked, slapped, or otherwise physically hurt you'"
+                }
+              }
+            ]
+          },
+          "type": "choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "yes",
+                "display": "Yes"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "no",
+                "display": "No"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "do not know",
+                "display": "Do not know"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "risk-of-notifying partner-thirteen",
+          "text": "Has [personName] ever threatened to hurt you?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+                "valueExpression": {
+                  "language": "text/fhirpath",
+                  "expression": "'Has '+ %resource.repeat(item).where(linkId='related-person-three').answer.value + 'ever threatened to hurt you?'"
+                }
+              }
+            ]
+          },
+          "type": "choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "yes",
+                "display": "Yes"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "no",
+                "display": "No"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "do not know",
+                "display": "Do not know"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "risk-of-notifying partner-fourteen",
+          "text": "Has [personName] ever forced you to do something sexually that made you feel uncomfortable?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+                "valueExpression": {
+                  "language": "text/fhirpath",
+                  "expression": "'Has '+ %resource.repeat(item).where(linkId='related-person-three').answer.value + 'ever forced you to do something sexually that made you feel uncomfortable?'"
+                }
+              }
+            ]
+          },
+          "type": "choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "yes",
+                "display": "Yes"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "no",
+                "display": "No"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://itech-uw/codings",
+                "code": "do not know",
+                "display": "Do not know"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "methods-of-notifying-partner-one",
+          "text": "<span style='color: blue;'><strong>METHODS OF NOTIFYING PARTNERS</strong></span>",
+          "type": "display"
+        },
+        {
+          "linkId": "methods-of-notifying-partner-two",
+          "text": "Some people want to talk directly with their partner(s) about getting tested for HIV. If you are not comfortable talking directly with your partner(s), a health worker can notify the person that they have been exposed to HIV and should get tested. This can be done confidentiality, so that the health worker never mentions you or your name.",
+          "type": "display"
+        },
+        {
+          "linkId": "methods-of-notifying-partner-three",
+          "text": "For each of your partners, you can discuss with the counselor or doctor the best option for notifying that person.",
+          "type": "display"
+        },
+        {
+          "linkId": "methods-of-notifying-partner-four",
+          "text": "You may click below to learn more about the options for notifying your partners.",
+          "type": "display"
+        },
+        {
+          "linkId": "methods-of-notifying-partner-five",
+          "text": "You notify your partner directly (by yourself)",
+          "type": "choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://example.org/options",
+                "code": "clicked-one",
+                "display": "Show more about this option"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "methods-of-notifying-partner-six",
+          "text": "Health worker notifies your partner",
+          "type": "choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://example.org/options",
+                "code": "clicked-two",
+                "display": "Show more about this option"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "methods-of-notifying-partner-seven",
+          "text": "Test together with your partner",
+          "type": "choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://example.org/options",
+                "code": "clicked-three",
+                "display": "Show more about this option"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "methods-of-notifying-partner-eight",
+          "text": "Conditional referral",
+          "type": "choice",
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://example.org/options",
+                "code": "clicked-four",
+                "display": "Show more about this option"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "you-notify-your-partner-directly",
+      "type": "group",
+      "enableWhen": [
+        {
+          "question": "methods-of-notifying-partner-five",
+          "operator": "exists",
+          "answerBoolean": true
+        }
+      ],
+      "item": [
+        {
+          "linkId": "you-notify-your-partner-directly-one",
+          "text": "Your healthcare team can provide referral letters that you can give to each of your partners. The letter contains a recommendation that the person come for HIV testing. It gives the location of the HIV testing site and the name of a counselor who can meet your partner when they come to get tested. HIV testing is free. The letter does not mention you or your name.",
+          "type": "display"
+        },
+        {
+          "linkId": "you-notify-your-partner-directly-two",
+          "text": "Today, the counselor can coach you about how to talk with your partner about the need to get tested. Practicing what to say can help you feel more comfortable notifying your partner.",
+          "type": "display"
+        }
+      ]
+    },
+    {
+      "linkId": "health-worker-notifies-your-partner",
+      "type": "group",
+      "enableWhen": [
+        {
+          "question": "methods-of-notifying-partner-six",
+          "operator": "exists",
+          "answerBoolean": true
+        }
+      ],
+      "item": [
+        {
+          "linkId": "health-worker-notifies-your-partner-one",
+          "text": "If you are not comfortable talking with your partner about HIV testing or you just prefer having someone talk to your partner(s) for you, a health worker can contact your partner via phone or mail. You will need to share the person’s first name and their contact details (phone or mailing address). ",
+          "type": "display"
+        },
+        {
+          "linkId": "health-worker-notifies-your-partner-two",
+          "text": "When the health worker contacts the person by phone, they will first let them know they may have been exposed to HIV. The health worker will never mention you or your name when they contact your partner. Then the health worker will share a recommendation that the person comes for HIV testing. They will give the location of the HIV testing site, and explain that HIV testing is free.",
+          "type": "display"
+        },
+        {
+          "linkId": "health-worker-notifies-your-partner-three",
+          "text": "When the health worker contacts the person by mail, they will share a referral letter. The letter will explain where and how the partner can get tested for HIV. The letter will never mention you or your name.",
+          "type": "display"
+        }
+      ]
+    },
+    {
+      "linkId": "test-together-with-your-partner",
+      "type": "group",
+      "enableWhen": [
+        {
+          "question": "methods-of-notifying-partner-seven",
+          "operator": "exists",
+          "answerBoolean": true
+        }
+      ],
+      "item": [
+        {
+          "linkId": "test-together-with-your-partner-one",
+          "text": "If you are not comfortable telling your partner that you are living with HIV, you can come with them to test together in the clinic. The counselor will not inform the partner of your HIV diagnosis. You can learn the results together with your partner, and the counselor can help both of you to understand the results (positive or negative) and what to do next to protect your health.",
+          "type": "display"
+        }
+      ]
+    },
+    {
+      "linkId": "conditional-referral",
+      "type": "group",
+      "enableWhen": [
+        {
+          "question": "methods-of-notifying-partner-eight",
+          "operator": "exists",
+          "answerBoolean": true
+        }
+      ],
+      "item": [
+        {
+          "linkId": "conditional-referral-one",
+          "text": "If you would like to try to notify your partner by yourself, but are not sure you will be successful, you can make an agreement with your healthcare team. As part of the agreement, you will agree on a date, like within the next 2 weeks, by when you will notify your partner. If you are not able to notify your partner by the agreed date, your healthcare team will confidentially notify your partner (see “Healthworker notifies your partner” above). This is a way to make sure your partner is notified. The healthcare worker will not mention your name when they contact the partner.",
+          "type": "display"
+        }
+      ]
+    },
+    {
+      "linkId": "injection-partners",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "injection-partners-one",
+          "text": "<span style='color: blue;'><strong>YOUR INJECTION PARTNERS</strong></span>",
+          "type": "display"
+        },
+        {
+          "linkId": "injection-partners-two",
+          "text": "HIV is also passed through sharing needles, cookers, cotton or other works when injecting",
+          "type": "display"
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemContext",
+          "valueExpression": {
+            "name": "administrativeGender",
+            "language": "application/x-fhir-query",
+            "expression": "Enumerations$AdministrativeGender"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/questionnaire-item-control",
+                "code": "radio-button",
+                "display": "Radio Button"
+              }
+            ]
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+          "valueCode": "horizontal"
+        },
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+          "valueExpression": {
+            "name": "patientGender",
+            "language": "text/fhirpath",
+            "expression": "Patient.gender"
+          }
+        }
+      ],
+      "linkId": "have-you-ever-used-needles-to-inject",
+      "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+      "text": "Have you ever used needles to inject?",
+      "type": "choice",
+      "answerOption": [
+        {
+          "valueCoding": {
+            "system": "http://itech-uw/codings",
+            "code": "yes",
+            "display": "Yes"
+          }
+        },
+        {
+          "valueCoding": {
+            "system": "http://itech-uw/codings",
+            "code": "no",
+            "display": "No"
+          }
+        },
+        {
+          "valueCoding": {
+            "system": "http://itech-uw/codings",
+            "code": "do not know",
+            "display": "Do not know"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "injection-partners-date",
+      "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.value",
+      "text": "<strong>When did you last inject?.</strong>",
+      "type": "date"
+    },
+    {
+      "linkId": "injection-partners-name-display-info",
+      "text": "It is important to notify people you have shared needles or works with, so they can get tested for HIV. We are also interested in people you injected with, even if you did not share needles or works, since they may also be at risk for HIV. ",
+      "type": "display"
+    },
+    {
+      "linkId": "group-one",
+      "type": "group",
+      "repeats": true,
+      "item": [
+        {
+          "linkId": "injection-partner-name",
+          "definition": "http://hl7.org/fhir/StructureDefinition/RelatedPerson#RelatedPerson.humanName",
+          "text": "<strong>Who was the last person you shot up with? Please type a first name or a nickname.</strong>",
+          "type": "string"
+        },
+        {
+          "linkId": "injection-partner-bio",
+          "definition": "http://hl7.org/fhir/StructureDefinition/RelatedPerson#RelatedPerson.humanName",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "injection-partner-bio-one",
+              "definition": "http://hl7.org/fhir/StructureDefinition/RelatedPerson#RelatedPerson.humanName",
+              "text": "When did you last shoot up with Partner_inject_name?",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+                    "valueExpression": {
+                      "language": "text/fhirpath",
+                      "expression": "'When did you last shoot up with '+ %resource.repeat(item).where(linkId='related-person-three').answer.value + '?'"
+                    }
+                  }
+                ]
+              },
+              "type": "date"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemContext",
+                  "valueExpression": {
+                    "name": "administrativeGender",
+                    "language": "application/x-fhir-query",
+                    "expression": "Enumerations$AdministrativeGender"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button",
+                        "display": "Radio Button"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+                  "valueCode": "horizontal"
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "name": "patientGender",
+                    "language": "text/fhirpath",
+                    "expression": "Patient.gender"
+                  }
+                }
+              ],
+              "linkId": "injection-partner-two",
+              "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+              "text": "What is the sex of Partner_inject_name?",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+                    "valueExpression": {
+                      "language": "text/fhirpath",
+                      "expression": "'What is the sex of '+ %resource.repeat(item).where(linkId='related-person-three').answer.value + '?'"
+                    }
+                  }
+                ]
+              },
+              "type": "choice",
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/administrative-gender",
+                    "code": "male",
+                    "display": "Male"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/administrative-gender",
+                    "code": "female",
+                    "display": "Female"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/administrative-gender",
+                    "code": "other",
+                    "display": "Transgender female"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/administrative-gender",
+                    "code": "unknown",
+                    "display": "Transgender male"
+                  }
+                }
+              ],
+              "initial": [
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/administrative-gender",
+                    "code": "male",
+                    "display": "Male"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemContext",
+                  "valueExpression": {
+                    "name": "administrativeGender",
+                    "language": "application/x-fhir-query",
+                    "expression": "Enumerations$AdministrativeGender"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button",
+                        "display": "Radio Button"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+                  "valueCode": "horizontal"
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "name": "patientGender",
+                    "language": "text/fhirpath",
+                    "expression": "Patient.gender"
+                  }
+                }
+              ],
+              "linkId": "age-category-injection-partner",
+              "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+              "text": "What is the age category of [personName]?",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+                    "valueExpression": {
+                      "language": "text/fhirpath",
+                      "expression": "'What is the age category of '+ %resource.repeat(item).where(linkId='related-person-three').answer.value + '?'"
+                    }
+                  }
+                ]
+              },
+              "type": "choice",
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://itech-uw/codings",
+                    "code": "less than 15 years",
+                    "display": "less than 15 years"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://itech-uw/codings",
+                    "code": "15 years or older",
+                    "display": "15 years or older"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemContext",
+                  "valueExpression": {
+                    "name": "administrativeGender",
+                    "language": "application/x-fhir-query",
+                    "expression": "Enumerations$AdministrativeGender"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button",
+                        "display": "Radio Button"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+                  "valueCode": "horizontal"
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "name": "patientGender",
+                    "language": "text/fhirpath",
+                    "expression": "Patient.gender"
+                  }
+                }
+              ],
+              "linkId": "have-you-ever-used-needles-to-inject",
+              "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+              "text": "Is Partner_inject_name also a sexual partner?",
+              "type": "choice",
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://itech-uw/codings",
+                    "code": "yes",
+                    "display": "Yes"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://itech-uw/codings",
+                    "code": "no",
+                    "display": "No"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://itech-uw/codings",
+                    "code": "do not know",
+                    "display": "Do not know"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemContext",
+                  "valueExpression": {
+                    "name": "administrativeGender",
+                    "language": "application/x-fhir-query",
+                    "expression": "Enumerations$AdministrativeGender"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button",
+                        "display": "Radio Button"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+                  "valueCode": "horizontal"
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "name": "patientGender",
+                    "language": "text/fhirpath",
+                    "expression": "Patient.gender"
+                  }
+                }
+              ],
+              "linkId": "does-the-injection-partner-already-know-that-you-are-living-with-hiv",
+              "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+              "text": "Does [personName] already know that you are living with HIV ?",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+                    "valueExpression": {
+                      "language": "text/fhirpath",
+                      "expression": "'Does '+ %resource.repeat(item).where(linkId='related-person-three').answer.value + ' already know that you are living with HIV ?'"
+                    }
+                  }
+                ]
+              },
+              "type": "choice",
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://itech-uw/codings",
+                    "code": "yes",
+                    "display": "Yes"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://itech-uw/codings",
+                    "code": "no",
+                    "display": "No"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://itech-uw/codings",
+                    "code": "do not know",
+                    "display": "Do not know"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemContext",
+                  "valueExpression": {
+                    "name": "administrativeGender",
+                    "language": "application/x-fhir-query",
+                    "expression": "Enumerations$AdministrativeGender"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button",
+                        "display": "Radio Button"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+                  "valueCode": "horizontal"
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "name": "patientGender",
+                    "language": "text/fhirpath",
+                    "expression": "Patient.gender"
+                  }
+                }
+              ],
+              "linkId": "to-your-knowledge-has-injection-partner-ever-tested-for-hiv",
+              "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+              "text": "To your knowledge has [personName] ever been tested for HIV?",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+                    "valueExpression": {
+                      "language": "text/fhirpath",
+                      "expression": "'To your knowledge has '+ %resource.repeat(item).where(linkId='related-person-three').answer.value + ' ever been tested for HIV?'"
+                    }
+                  }
+                ]
+              },
+              "type": "choice",
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://itech-uw/codings",
+                    "code": "yes",
+                    "display": "Yes"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://itech-uw/codings",
+                    "code": "no",
+                    "display": "No"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://itech-uw/codings",
+                    "code": "do not know",
+                    "display": "Do not know"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemContext",
+                  "valueExpression": {
+                    "name": "administrativeGender",
+                    "language": "application/x-fhir-query",
+                    "expression": "Enumerations$AdministrativeGender"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button",
+                        "display": "Radio Button"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+                  "valueCode": "horizontal"
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "name": "patientGender",
+                    "language": "text/fhirpath",
+                    "expression": "Patient.gender"
+                  }
+                }
+              ],
+              "linkId": "to-your-knowledge-when-was-injection-partner-most-recently-tested-for-hiv",
+              "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+              "text": "To your knowledge when was [personName] most recently tested for HIV?  [mm/yyyy]",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+                    "valueExpression": {
+                      "language": "text/fhirpath",
+                      "expression": "'To your knowledge when was  ' + %resource.repeat(item).where(linkId='related-person-three').answer.value + ' most recently tested for HIV?  [mm/yyyy]'"
+                    }
+                  }
+                ]
+              },
+              "type": "dateTime"
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemContext",
+                  "valueExpression": {
+                    "name": "administrativeGender",
+                    "language": "application/x-fhir-query",
+                    "expression": "Enumerations$AdministrativeGender"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button",
+                        "display": "Radio Button"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+                  "valueCode": "horizontal"
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "name": "patientGender",
+                    "language": "text/fhirpath",
+                    "expression": "Patient.gender"
+                  }
+                }
+              ],
+              "linkId": "injection-partner-result-of-the-most-recent-hiv-test",
+              "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+              "text": "What was the result of the most recent HIV test for [personName]?",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+                    "valueExpression": {
+                      "language": "text/fhirpath",
+                      "expression": "'What was the result of the most recent HIV test for ' + %resource.repeat(item).where(linkId='related-person-three').answer.value + '?'"
+                    }
+                  }
+                ]
+              },
+              "type": "choice",
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://itech-uw/codings",
+                    "code": "Tested HIV-positive (diagnosed with HIV)",
+                    "display": "Tested HIV-positive (diagnosed with HIV)"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://itech-uw/codings",
+                    "code": "Tested HIV-negative (no HIV)",
+                    "display": "Tested HIV-negative (no HIV)"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://itech-uw/codings",
+                    "code": "do not know",
+                    "display": "Do not know"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemContext",
+                  "valueExpression": {
+                    "name": "administrativeGender",
+                    "language": "application/x-fhir-query",
+                    "expression": "Enumerations$AdministrativeGender"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button",
+                        "display": "Radio Button"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+                  "valueCode": "horizontal"
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "name": "patientGender",
+                    "language": "text/fhirpath",
+                    "expression": "Patient.gender"
+                  }
+                }
+              ],
+              "linkId": "has-injection-partner-ever-been-enrolled-in-hiv-care-and-treatment",
+              "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+              "text": "Has [personName] ever been enrolled in HIV care and treatment?",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+                    "valueExpression": {
+                      "language": "text/fhirpath",
+                      "expression": "'Has '+ %resource.repeat(item).where(linkId='related-person-three').answer.value +' ever been enrolled in HIV care and treatment?'"
+                    }
+                  }
+                ]
+              },
+              "type": "choice",
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://itech-uw/codings",
+                    "code": "yes",
+                    "display": "Yes"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://itech-uw/codings",
+                    "code": "no",
+                    "display": "No"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://itech-uw/codings",
+                    "code": "do not know",
+                    "display": "Do not know"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "biological-children",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "display-1",
+          "text": "<strong>YOUR BIOLOGICAL CHILDREN</strong>\nHIV can be passed from mothers to their biological children during pregnancy, childbirth, or breastfeeding. It is important for your biological children to be tested for HIV if they may have been exposed to HIV as infants and have not been tested for HIV.",
+          "type": "display"
+        },
+        {
+          "linkId": "do-you-have-biological-children-test",
+          "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+          "text": "Do you have any biological children who should be tested for HIV?",
           "type": "boolean"
         },
         {
-          "linkId": "time-window-ten",
-          "definition": "http://hl7.org/fhir/StructureDefinition/Appointment#Appointment.created",
-          "text": "<strong> 6a. Has [personName] ever started treatment for HIV?</strong>",
-          "_text": {
-            "extension": [
-              {
-                "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
-                "valueExpression": {
-                  "language": "text/fhirpath",
-                  "expression": "'6a. Has ' + %resource.repeat(item).where(linkId='sexual-partners-three').answer.value + ' ever started treatment for HIV?'"
-                }
-              }
-            ]
-          },
-          "type": "boolean"
+          "linkId": "display-2",
+          "text": "Please list your biological children who should be tested for HIV, and their ages:",
+          "type": "display"
+        },
+        {
+          "linkId": "child-age-group",
+          "type": "group",
+          "enableWhen": [
+            {
+              "question": "do-you-have-biological-children-test",
+              "operator": "=",
+              "answerBoolean": true
+            }
+          ],
+          "repeats": true,
+          "item": [
+            {
+              "linkId": "child-name",
+              "definition": "http://hl7.org/fhir/StructureDefinition/RelatedPerson#RelatedPerson.humanName",
+              "text": "<strong>Name of Child</strong>",
+              "type": "string",
+              "repeats": true
+            },
+            {
+              "linkId": "child-age",
+              "definition": "http://hl7.org/fhir/StructureDefinition/RelatedPerson#RelatedPerson.humanName",
+              "text": "<strong>Age of child (years)\nIf child is less than one year, please make this 1</strong>",
+              "type": "string",
+              "repeats": true
+            }
+          ]
         }
       ]
     }
