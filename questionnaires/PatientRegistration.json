@@ -46,7 +46,6 @@
           "readOnly": false
         }
       ]
-
     },
     {
       "extension": [
@@ -67,7 +66,6 @@
           "linkId": "ssdId",
           "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.identifier.value",
           "text": "IS SSD identification number",
-          "type": "string",
           "_text": {
             "extension": [
               {
@@ -84,10 +82,10 @@
                 ]
               }
             ]
-          }
+          },
+          "type": "string"
         }
       ]
-
     },
     {
       "linkId": "appointment-date",
@@ -196,14 +194,6 @@
     {
       "extension": [
         {
-          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemContext",
-          "valueExpression": {
-            "name": "administrativeGender",
-            "language": "application/x-fhir-query",
-            "expression": "Enumerations$AdministrativeGender"
-          }
-        },
-        {
           "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
           "valueCodeableConcept": {
             "coding": [
@@ -217,19 +207,19 @@
         },
         {
           "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
-          "valueCode": "horizontal"
+          "valueCode": "vertical"
         },
         {
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
           "valueExpression": {
-            "name": "patientGender",
+            "name": "genderIdentity",
             "language": "text/fhirpath",
-            "expression": "Patient.gender"
+            "expression": "Patient.genderIdentity"
           }
         }
       ],
-      "linkId": "patient-0-gender",
-      "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+      "linkId": "patient-gender",
+      "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.genderIdentity",
       "text": "What is the index client’s sex?",
       "_text": {
         "extension": [
@@ -249,19 +239,34 @@
         ]
       },
       "type": "choice",
+      "repeats": true,
       "answerOption": [
         {
           "valueCoding": {
-            "system": "http://hl7.org/fhir/administrative-gender",
+            "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-gender-identity",
             "code": "male",
             "display": "Male"
           }
         },
         {
           "valueCoding": {
-            "system": "http://hl7.org/fhir/administrative-gender",
+            "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-gender-identity",
             "code": "female",
             "display": "Female"
+          }
+        },
+        {
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-gender-identity",
+            "code": "other",
+            "display": "Other"
+          }
+        },
+        {
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-gender-identity",
+            "code": "unknown",
+            "display": "Unknown"
           }
         }
       ],

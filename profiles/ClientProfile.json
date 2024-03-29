@@ -165,7 +165,7 @@
     },
     {
       "viewType": "BUTTON",
-      "text": "Launch first partner elicitation interview",
+      "text": "Partner Elicitation interview",
       "status": "DUE",
       "primaryTextColor": "#91881c",
       "visible": "true",
@@ -186,6 +186,49 @@
               "linkId": "patientId",
               "key": "patientId",
               "value": "@{patientID}",
+              "dataType": "STRING"
+            },
+            {
+              "paramType": "PREPOPULATE",
+              "linkId": "subject-uuid",
+              "key": "subjectUUID",
+              "value": "Patient/@{patientID}",
+              "dataType": "STRING"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "viewType": "BUTTON",
+      "text": "Sexual Partners",
+      "status": "DUE",
+      "primaryTextColor": "#91881c",
+      "visible": "true",
+      "enabled": "true",
+      "actions": [
+        {
+          "trigger": "ON_CLICK",
+          "workflow": "LAUNCH_QUESTIONNAIRE",
+          "questionnaire": {
+            "id": "445",
+            "title": "Elicitation Interview",
+            "resourceIdentifier": "@{patientID}",
+            "saveButtonText": "Partner Elicitation interview"
+          },
+          "params": [
+            {
+              "paramType": "PREPOPULATE",
+              "linkId": "patientId",
+              "key": "patientId",
+              "value": "@{patientID}",
+              "dataType": "STRING"
+            },
+            {
+              "paramType": "PREPOPULATE",
+              "linkId": "subject-uuid",
+              "key": "subjectUUID",
+              "value": "Patient/@{patientID}",
               "dataType": "STRING"
             }
           ]

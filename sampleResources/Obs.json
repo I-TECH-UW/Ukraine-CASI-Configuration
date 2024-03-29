@@ -1,0 +1,26 @@
+{
+  "resourceType": "Observation",
+  "id": "135333c8-4f1f-4fa8-a014-079d76728c0a",
+  "meta": {
+    "versionId": "1",
+    "lastUpdated": "2024-03-20T16:23:02.667+03:00",
+    "source": "#R6hzs9ZcMY5uCBAT"
+  },
+  "code": {
+    "coding": [
+      {
+        "system": "http://itech-uw/codingss",
+        "code": "1111AA"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/8bfeafd0-cf36-43c9-8948-9a221047e076"
+  },
+  "performer": [
+    {
+      "reference": "Practitioner/1c60534c-ac3e-4773-954d-2178f70b2173"
+    }
+  ],
+  "valueDateTime": "2024-03-01T16:17:00+03:00"
+}
