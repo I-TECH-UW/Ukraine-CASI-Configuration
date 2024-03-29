@@ -1,0 +1,27 @@
+{
+  "resourceType": "Patient",
+  "id": "8bfeafd0-cf36-43c9-8948-9a221047e076",
+  "meta": {
+    "versionId": "1",
+    "lastUpdated": "2024-02-29T18:20:29.910+03:00",
+    "source": "#b6kIQ23XfGZ0c5nt"
+  },
+  "identifier": [
+    {
+      "value": "654436770678"
+    },
+    {
+      "value": "70080755670"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1982-02-27",
+  "generalPractitioner": [
+    {
+      "reference": "Practitioner/05bbcd9e-af8c-4217-9b4e-d982694fac27"
+    }
+  ],
+  "managingOrganization": {
+    "reference": "Organization/4973080a-eec7-4eac-9a55-f464cd95ba16"
+  }
+}

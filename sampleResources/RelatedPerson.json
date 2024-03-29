@@ -1,0 +1,23 @@
+{
+  "resourceType": "RelatedPerson",
+  "patient": {
+    "reference": "Patient/8bfeafd0-cf36-43c9-8948-9a221047e076"
+  },
+  "name": [
+    {
+      "family": "Namanya",
+      "_family": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/humanname-own-prefix",
+            "valueString": "VV"
+          }
+        ]
+      },
+      "given": [
+        "Abert"
+      ]
+    }
+  ],
+  "gender": "male"
+}

@@ -1,0 +1,340 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "447",
+  "meta": {
+    "versionId": "1",
+    "lastUpdated": "2024-03-21T16:41:59.654+03:00"
+  },
+  "language": "en",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemExtractionContext",
+      "valueExpression": {
+        "name": "relatedPerson",
+        "language": "application/x-fhir-query",
+        "expression": "RelatedPerson"
+      }
+    }
+  ],
+  "title": "LISTING BIOLOGICAL CHILDREN",
+  "status": "active",
+  "subjectType": [
+    "Patient",
+    "RelatedPerson"
+  ],
+  "date": "2024-03-06T07:24:47.111Z",
+  "item": [
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+          "valueExpression": {
+            "language": "text/fhirpath",
+            "expression": "Patient.id"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+          "valueBoolean": true
+        }
+      ],
+      "linkId": "patientId",
+      "type": "string"
+    },
+    {
+      "linkId": "display-1",
+      "text": "<strong>YOUR INJECTION PARTNERS</strong>\nHIV is also passed through sharing needles, cookers, cotton or other works when injecting.",
+      "type": "display"
+    },
+    {
+      "linkId": "used-needles-to-inject",
+      "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+      "text": "Have you ever used needles to inject?",
+      "type": "choice",
+      "answerOption": [
+        {
+          "valueCoding": {
+            "system": "http://itech-uw/codings",
+            "code": "yes",
+            "display": "Yes"
+          }
+        },
+        {
+          "valueCoding": {
+            "system": "http://itech-uw/codings",
+            "code": "no",
+            "display": "No"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "injection-date",
+      "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.value",
+      "text": "When did you last inject?",
+      "type": "dateTime"
+    },
+    {
+      "linkId": "display-2",
+      "text": "It is important to notify people you have shared needles or works with, so they can get tested for HIV. We are also interested in people you injected with, even if you did not share needles or works, since they may also be at risk for HIV.",
+      "type": "display"
+    },
+    {
+      "linkId": "injection-partner-name",
+      "definition": "http://hl7.org/fhir/StructureDefinition/RelatedPerson#RelatedPerson.humanName",
+      "text": "Who was the last person you shot up with?  Please type a first name or a nickname.",
+      "type": "string"
+    },
+    {
+      "linkId": "last-partner-injection-date",
+      "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.value",
+      "text": "When did you last shoot up with [insert listed name] ?",
+      "type": "dateTime"
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/questionnaire-item-control",
+                "code": "radio-button",
+                "display": "Radio Button"
+              }
+            ]
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-choiceOrientation",
+          "valueCode": "vertical"
+        },
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+          "valueExpression": {
+            "name": "genderIdentity",
+            "language": "text/fhirpath",
+            "expression": "Patient.genderIdentity"
+          }
+        }
+      ],
+      "linkId": "injection-partner-gender",
+      "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.genderIdentity",
+      "text": "What is the sex of [insert name listed]?",
+      "type": "choice",
+      "repeats": true,
+      "answerOption": [
+        {
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-gender-identity",
+            "code": "male",
+            "display": "Male"
+          }
+        },
+        {
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-gender-identity",
+            "code": "female",
+            "display": "Female"
+          }
+        },
+        {
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-gender-identity",
+            "code": "other",
+            "display": "Other"
+          }
+        },
+        {
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-gender-identity",
+            "code": "unknown",
+            "display": "Unknown"
+          }
+        }
+      ],
+      "initial": [
+        {
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/administrative-gender",
+            "code": "male",
+            "display": "Male"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "age-category",
+      "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+      "text": "What is the age category of [insert name listed]?",
+      "type": "choice",
+      "answerOption": [
+        {
+          "valueCoding": {
+            "system": "http://itech-uw/codings",
+            "code": "15-or-below",
+            "display": "Under 15 years"
+          }
+        },
+        {
+          "valueCoding": {
+            "system": "http://itech-uw/codings",
+            "code": "15-older",
+            "display": "15 Years or older"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "is-same-sexual-partner",
+      "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+      "text": "Is [insert listed name] also a sexual partner?",
+      "type": "choice",
+      "answerOption": [
+        {
+          "valueCoding": {
+            "system": "http://itech-uw/codings",
+            "code": "yes",
+            "display": "Yes"
+          }
+        },
+        {
+          "valueCoding": {
+            "system": "http://itech-uw/codings",
+            "code": "no",
+            "display": "No"
+          }
+        },
+        {
+          "valueCoding": {
+            "system": "http://itech-uw/codings",
+            "code": "no-sure",
+            "display": "Don't Know"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "partner-already-knew-status",
+      "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+      "text": "Does [insert name listed] already know that you are living with HIV ?",
+      "type": "choice",
+      "answerOption": [
+        {
+          "valueCoding": {
+            "system": "http://itech-uw/codings",
+            "code": "yes",
+            "display": "Yes"
+          }
+        },
+        {
+          "valueCoding": {
+            "system": "http://itech-uw/codings",
+            "code": "no",
+            "display": "No"
+          }
+        },
+        {
+          "valueCoding": {
+            "system": "http://itech-uw/codings",
+            "code": "no-sure",
+            "display": "Don't Know"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "partner-already-tested-for-hiv",
+      "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+      "text": "To your knowledge has [insert name listed] ever been tested for HIV?",
+      "type": "choice",
+      "answerOption": [
+        {
+          "valueCoding": {
+            "system": "http://itech-uw/codings",
+            "code": "yes",
+            "display": "Yes"
+          }
+        },
+        {
+          "valueCoding": {
+            "system": "http://itech-uw/codings",
+            "code": "no",
+            "display": "No"
+          }
+        },
+        {
+          "valueCoding": {
+            "system": "http://itech-uw/codings",
+            "code": "no-sure",
+            "display": "Don't Know"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "recent-test-date",
+      "definition": "http://hl7.org/fhir/StructureDefinition/Observation#Observation.value",
+      "text": "To your knowledge when was [insert name listed] most recently tested for HIV? [mm/yyyy]",
+      "type": "dateTime"
+    },
+    {
+      "linkId": "partner-test-status",
+      "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+      "text": "What was the result of the most recent HIV test for [Insert name] ?",
+      "type": "choice",
+      "answerOption": [
+        {
+          "valueCoding": {
+            "system": "http://itech-uw/codings",
+            "code": "positive",
+            "display": "Tested HIV-positive (diagnosed with HIV)"
+          }
+        },
+        {
+          "valueCoding": {
+            "system": "http://itech-uw/codings",
+            "code": "negative",
+            "display": "Tested HIV-negative (no HIV)"
+          }
+        },
+        {
+          "valueCoding": {
+            "system": "http://itech-uw/codings",
+            "code": "no-sure",
+            "display": "Don't Know"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "has-partner-ever-enrolled-into-hiv-care",
+      "definition": "http://hl7.org/fhir/StructureDefinition/Patient#Patient.gender",
+      "text": "Has [insert name listed] ever been enrolled in HIV care and treatment?",
+      "type": "choice",
+      "answerOption": [
+        {
+          "valueCoding": {
+            "system": "http://itech-uw/codings",
+            "code": "yes",
+            "display": "Yes"
+          }
+        },
+        {
+          "valueCoding": {
+            "system": "http://itech-uw/codings",
+            "code": "no",
+            "display": "No"
+          }
+        },
+        {
+          "valueCoding": {
+            "system": "http://itech-uw/codings",
+            "code": "no-sure",
+            "display": "Don't Know"
+          }
+        }
+      ]
+    }
+  ]
+}

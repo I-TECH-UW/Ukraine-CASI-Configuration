@@ -2,9 +2,9 @@
   "resourceType": "Questionnaire",
   "id": "160",
   "meta": {
-    "versionId": "231",
-    "lastUpdated": "2024-03-24T14:49:21.907+03:00",
-    "source": "#2f230JN57mCdTkKP"
+    "versionId": "207",
+    "lastUpdated": "2024-03-22T13:34:33.245+03:00",
+    "source": "#xJtjwo5GsOU4M0Z7"
   },
   "language": "en",
   "extension": [
@@ -48,38 +48,8 @@
       "type": "string"
     },
     {
-      "extension": [
-        {
-          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
-          "valueCodeableConcept": {
-            "coding": [
-              {
-                "system": "http://hl7.org/fhir/questionnaire-item-control",
-                "code": "page",
-                "display": "Page"
-              }
-            ],
-            "text": "Page"
-          }
-        }
-      ],
       "linkId": "study-materials",
       "type": "group",
-      "extension": [
-        {
-          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
-          "valueCodeableConcept": {
-            "coding": [
-              {
-                "system": "http://hl7.org/fhir/questionnaire-item-control",
-                "code": "page",
-                "display": "Page"
-              }
-            ],
-            "text": "Page"
-          }
-        }
-      ],
       "item": [
         {
           "linkId": "why-partner-testing",
@@ -105,33 +75,12 @@
           "linkId": "why-partner-testing-four",
           "text": "We now have very effective, free medicines for treating and for preventing HIV. You can help your partners stay healthy by making sure they get tested for HIV.",
           "type": "display"
-        },
-        {
-          "linkId": "more-information-toggle",
-          "text": "<span style='color: blue;'>Click here for more information</strong></span>",
-          "type": "choice",
-          "answerOption": [
-            {
-              "valueCoding": {
-                "system": "http://example.org/options",
-                "code": "clicked",
-                "display": "Clicked"
-              }
-            }
-          ]
         }
       ]
     },
     {
       "linkId": "how-your-partners-can-stay-healthy",
       "type": "group",
-      "enableWhen": [
-        {
-          "question": "more-information-toggle",
-          "operator": "exists",
-          "answerBoolean": true
-        }
-      ],
       "item": [
         {
           "linkId": "how-your-partners-can-stay-healthy-one",
@@ -1380,341 +1329,6 @@
               }
             }
           ]
-        },
-        {
-          "linkId": "risk-of-notifying partner-one",
-          "text": "<span style='color: blue;'><strong>RISKS OF NOTIFYING PARTNERS</strong></span>",
-          "type": "display"
-        },
-        {
-          "linkId": "risk-of-notifying partner-two",
-          "text": "<span style='color: blue;'><strong>Some people worry that their partner will become upset if they learn they have been exposed to HIV. You may fear your partner could hurt you if they learn you have HIV or suspect you have HIV.</strong></span>",
-          "type": "display"
-        },
-        {
-          "linkId": "risk-of-notifying partner-three",
-          "text": "Harm can be:-",
-          "type": "display"
-        },
-        {
-          "linkId": "risk-of-notifying partner-four",
-          "text": "- Physical (beating, assault)",
-          "type": "display"
-        },
-        {
-          "linkId": "risk-of-notifying partner-five",
-          "text": "- Sexual (assault or abuse)",
-          "type": "display"
-        },
-        {
-          "linkId": "risk-of-notifying partner-six",
-          "text": "- Emotional (insults, verbal abuse)",
-          "type": "display"
-        },
-        {
-          "linkId": "risk-of-notifying partner-seven",
-          "text": "- Economic (withholding money or resources)",
-          "type": "display"
-        },
-        {
-          "linkId": "risk-of-notifying partner-eight",
-          "text": "- Ending your relationship",
-          "type": "display"
-        },
-        {
-          "linkId": "risk-of-notifying partner-nine",
-          "text": "- You may discuss any of these concerns with your healthcare providers.",
-          "type": "display"
-        },
-        {
-          "linkId": "risk-of-notifying partner-ten",
-          "text": "- Ending your relationship",
-          "type": "display"
-        },
-        {
-          "linkId": "risk-of-notifying partner-eleven",
-          "text": "We will ask you about your concerns about physical, emotional, or sexual violence. We encourage you to discuss your concerns about your risk of harm with the health worker.",
-          "type": "display"
-        },
-        {
-          "linkId": "risk-of-notifying partner-twelve",
-          "text": "Has [personName] ever hit, kicked, slapped, or otherwise physically hurt you?",
-          "_text": {
-            "extension": [
-              {
-                "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
-                "valueExpression": {
-                  "language": "text/fhirpath",
-                  "expression": "'Has '+ %resource.repeat(item).where(linkId='related-person-three').answer.value + 'ever hit, kicked, slapped, or otherwise physically hurt you'"
-                }
-              }
-            ]
-          },
-          "type": "choice",
-          "answerOption": [
-            {
-              "valueCoding": {
-                "system": "http://itech-uw/codings",
-                "code": "yes",
-                "display": "Yes"
-              }
-            },
-            {
-              "valueCoding": {
-                "system": "http://itech-uw/codings",
-                "code": "no",
-                "display": "No"
-              }
-            },
-            {
-              "valueCoding": {
-                "system": "http://itech-uw/codings",
-                "code": "do not know",
-                "display": "Do not know"
-              }
-            }
-          ]
-        },
-        {
-          "linkId": "risk-of-notifying partner-thirteen",
-          "text": "Has [personName] ever threatened to hurt you?",
-          "_text": {
-            "extension": [
-              {
-                "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
-                "valueExpression": {
-                  "language": "text/fhirpath",
-                  "expression": "'Has '+ %resource.repeat(item).where(linkId='related-person-three').answer.value + 'ever threatened to hurt you?'"
-                }
-              }
-            ]
-          },
-          "type": "choice",
-          "answerOption": [
-            {
-              "valueCoding": {
-                "system": "http://itech-uw/codings",
-                "code": "yes",
-                "display": "Yes"
-              }
-            },
-            {
-              "valueCoding": {
-                "system": "http://itech-uw/codings",
-                "code": "no",
-                "display": "No"
-              }
-            },
-            {
-              "valueCoding": {
-                "system": "http://itech-uw/codings",
-                "code": "do not know",
-                "display": "Do not know"
-              }
-            }
-          ]
-        },
-        {
-          "linkId": "risk-of-notifying partner-fourteen",
-          "text": "Has [personName] ever forced you to do something sexually that made you feel uncomfortable?",
-          "_text": {
-            "extension": [
-              {
-                "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
-                "valueExpression": {
-                  "language": "text/fhirpath",
-                  "expression": "'Has '+ %resource.repeat(item).where(linkId='related-person-three').answer.value + 'ever forced you to do something sexually that made you feel uncomfortable?'"
-                }
-              }
-            ]
-          },
-          "type": "choice",
-          "answerOption": [
-            {
-              "valueCoding": {
-                "system": "http://itech-uw/codings",
-                "code": "yes",
-                "display": "Yes"
-              }
-            },
-            {
-              "valueCoding": {
-                "system": "http://itech-uw/codings",
-                "code": "no",
-                "display": "No"
-              }
-            },
-            {
-              "valueCoding": {
-                "system": "http://itech-uw/codings",
-                "code": "do not know",
-                "display": "Do not know"
-              }
-            }
-          ]
-        },
-        {
-          "linkId": "methods-of-notifying-partner-one",
-          "text": "<span style='color: blue;'><strong>METHODS OF NOTIFYING PARTNERS</strong></span>",
-          "type": "display"
-        },
-        {
-          "linkId": "methods-of-notifying-partner-two",
-          "text": "Some people want to talk directly with their partner(s) about getting tested for HIV. If you are not comfortable talking directly with your partner(s), a health worker can notify the person that they have been exposed to HIV and should get tested. This can be done confidentiality, so that the health worker never mentions you or your name.",
-          "type": "display"
-        },
-        {
-          "linkId": "methods-of-notifying-partner-three",
-          "text": "For each of your partners, you can discuss with the counselor or doctor the best option for notifying that person.",
-          "type": "display"
-        },
-        {
-          "linkId": "methods-of-notifying-partner-four",
-          "text": "You may click below to learn more about the options for notifying your partners.",
-          "type": "display"
-        },
-        {
-          "linkId": "methods-of-notifying-partner-five",
-          "text": "You notify your partner directly (by yourself)",
-          "type": "choice",
-          "answerOption": [
-            {
-              "valueCoding": {
-                "system": "http://example.org/options",
-                "code": "clicked-one",
-                "display": "Show more about this option"
-              }
-            }
-          ]
-        },
-        {
-          "linkId": "methods-of-notifying-partner-six",
-          "text": "Health worker notifies your partner",
-          "type": "choice",
-          "answerOption": [
-            {
-              "valueCoding": {
-                "system": "http://example.org/options",
-                "code": "clicked-two",
-                "display": "Show more about this option"
-              }
-            }
-          ]
-        },
-        {
-          "linkId": "methods-of-notifying-partner-seven",
-          "text": "Test together with your partner",
-          "type": "choice",
-          "answerOption": [
-            {
-              "valueCoding": {
-                "system": "http://example.org/options",
-                "code": "clicked-three",
-                "display": "Show more about this option"
-              }
-            }
-          ]
-        },
-        {
-          "linkId": "methods-of-notifying-partner-eight",
-          "text": "Conditional referral",
-          "type": "choice",
-          "answerOption": [
-            {
-              "valueCoding": {
-                "system": "http://example.org/options",
-                "code": "clicked-four",
-                "display": "Show more about this option"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "linkId": "you-notify-your-partner-directly",
-      "type": "group",
-      "enableWhen": [
-        {
-          "question": "methods-of-notifying-partner-five",
-          "operator": "exists",
-          "answerBoolean": true
-        }
-      ],
-      "item": [
-        {
-          "linkId": "you-notify-your-partner-directly-one",
-          "text": "Your healthcare team can provide referral letters that you can give to each of your partners. The letter contains a recommendation that the person come for HIV testing. It gives the location of the HIV testing site and the name of a counselor who can meet your partner when they come to get tested. HIV testing is free. The letter does not mention you or your name.",
-          "type": "display"
-        },
-        {
-          "linkId": "you-notify-your-partner-directly-two",
-          "text": "Today, the counselor can coach you about how to talk with your partner about the need to get tested. Practicing what to say can help you feel more comfortable notifying your partner.",
-          "type": "display"
-        }
-      ]
-    },
-    {
-      "linkId": "health-worker-notifies-your-partner",
-      "type": "group",
-      "enableWhen": [
-        {
-          "question": "methods-of-notifying-partner-six",
-          "operator": "exists",
-          "answerBoolean": true
-        }
-      ],
-      "item": [
-        {
-          "linkId": "health-worker-notifies-your-partner-one",
-          "text": "If you are not comfortable talking with your partner about HIV testing or you just prefer having someone talk to your partner(s) for you, a health worker can contact your partner via phone or mail. You will need to share the person’s first name and their contact details (phone or mailing address). ",
-          "type": "display"
-        },
-        {
-          "linkId": "health-worker-notifies-your-partner-two",
-          "text": "When the health worker contacts the person by phone, they will first let them know they may have been exposed to HIV. The health worker will never mention you or your name when they contact your partner. Then the health worker will share a recommendation that the person comes for HIV testing. They will give the location of the HIV testing site, and explain that HIV testing is free.",
-          "type": "display"
-        },
-        {
-          "linkId": "health-worker-notifies-your-partner-three",
-          "text": "When the health worker contacts the person by mail, they will share a referral letter. The letter will explain where and how the partner can get tested for HIV. The letter will never mention you or your name.",
-          "type": "display"
-        }
-      ]
-    },
-    {
-      "linkId": "test-together-with-your-partner",
-      "type": "group",
-      "enableWhen": [
-        {
-          "question": "methods-of-notifying-partner-seven",
-          "operator": "exists",
-          "answerBoolean": true
-        }
-      ],
-      "item": [
-        {
-          "linkId": "test-together-with-your-partner-one",
-          "text": "If you are not comfortable telling your partner that you are living with HIV, you can come with them to test together in the clinic. The counselor will not inform the partner of your HIV diagnosis. You can learn the results together with your partner, and the counselor can help both of you to understand the results (positive or negative) and what to do next to protect your health.",
-          "type": "display"
-        }
-      ]
-    },
-    {
-      "linkId": "conditional-referral",
-      "type": "group",
-      "enableWhen": [
-        {
-          "question": "methods-of-notifying-partner-eight",
-          "operator": "exists",
-          "answerBoolean": true
-        }
-      ],
-      "item": [
-        {
-          "linkId": "conditional-referral-one",
-          "text": "If you would like to try to notify your partner by yourself, but are not sure you will be successful, you can make an agreement with your healthcare team. As part of the agreement, you will agree on a date, like within the next 2 weeks, by when you will notify your partner. If you are not able to notify your partner by the agreed date, your healthcare team will confidentially notify your partner (see “Healthworker notifies your partner” above). This is a way to make sure your partner is notified. The healthcare worker will not mention your name when they contact the partner.",
-          "type": "display"
         }
       ]
     },
@@ -1803,6 +1417,7 @@
       "text": "<strong>When did you last inject?.</strong>",
       "type": "date"
     },
+
     {
       "linkId": "injection-partners-name-display-info",
       "text": "It is important to notify people you have shared needles or works with, so they can get tested for HIV. We are also interested in people you injected with, even if you did not share needles or works, since they may also be at risk for HIV. ",
@@ -1828,6 +1443,7 @@
               "linkId": "injection-partner-bio-one",
               "definition": "http://hl7.org/fhir/StructureDefinition/RelatedPerson#RelatedPerson.humanName",
               "text": "When did you last shoot up with Partner_inject_name?",
+              "type": "date",
               "_text": {
                 "extension": [
                   {
@@ -1838,8 +1454,7 @@
                     }
                   }
                 ]
-              },
-              "type": "date"
+              }
             },
             {
               "extension": [
@@ -2418,7 +2033,7 @@
       "item": [
         {
           "linkId": "display-1",
-          "text": "<strong>YOUR BIOLOGICAL CHILDREN</strong>\nHIV can be passed from mothers to their biological children during pregnancy, childbirth, or breastfeeding. It is important for your biological children to be tested for HIV if they may have been exposed to HIV as infants and have not been tested for HIV.",
+          "text": "<strong>YOUR BIOLOGICAL CHILDREN</strong>\nHIV can be passed from mothers to their biological children during pregnancy, childbirth or breastfeeding. It is important for your biological children to be tested for HIV if they may have been exposed to HIV as infants and have not been tested for HIV",
           "type": "display"
         },
         {
@@ -2435,28 +2050,36 @@
         {
           "linkId": "child-age-group",
           "type": "group",
+          "repeats": true,
           "enableWhen": [
             {
               "question": "do-you-have-biological-children-test",
-              "operator": "=",
-              "answerBoolean": true
+              "operator": "exists",
+              "answerBoolean": false
             }
           ],
-          "repeats": true,
           "item": [
             {
               "linkId": "child-name",
               "definition": "http://hl7.org/fhir/StructureDefinition/RelatedPerson#RelatedPerson.humanName",
-              "text": "<strong>Name of Child</strong>",
-              "type": "string",
-              "repeats": true
-            },
-            {
-              "linkId": "child-age",
-              "definition": "http://hl7.org/fhir/StructureDefinition/RelatedPerson#RelatedPerson.humanName",
-              "text": "<strong>Age of child (years)\nIf child is less than one year, please make this 1</strong>",
-              "type": "string",
-              "repeats": true
+              "repeats": false,
+              "type": "group",
+              "item": [
+                {
+                  "linkId": "child-name",
+                  "definition": "http://hl7.org/fhir/StructureDefinition/RelatedPerson#RelatedPerson.humanName",
+                  "text": "<strong>Name of Child</strong>",
+                  "repeats": true,
+                  "type": "string"
+                },
+                {
+                  "linkId": "child-age",
+                  "definition": "http://hl7.org/fhir/StructureDefinition/RelatedPerson#RelatedPerson.humanName",
+                  "text": "<strong>Age of child (years)\nIf child is less than one year, please make this 1</strong>",
+                  "repeats": true,
+                  "type": "string"
+                }
+              ]
             }
           ]
         }
